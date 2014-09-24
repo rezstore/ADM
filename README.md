@@ -1,4 +1,4 @@
 rez_fb_pos
 ==========
 
-ini merupakan project untuk mempostingkan message ke facebook page
+Ini merupakan project untuk mempostingkan message ke facebook page, tolong jangan dicopy
