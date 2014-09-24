@@ -1,0 +1,68 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Facebook extends CI_Controller {
+
+	var $appId = "";
+	var $appSecret = "";
+	var $return_url = ""; 
+	var $homeurl = "";  
+	var $fbPermissions = ""; 
+	
+	function __construct()
+	 {
+		parent::__construct();
+		$this->load->helper(array('url','html'));
+		$this->load->model('m_facebook');
+		$this->initial();
+	 }
+	
+	function initial(){
+		$this->appId = '142895449211373'; //Facebook App ID
+		$this->appSecret = '3dbcdb2924d107bd28293f99ba0634e4'; // Facebook App Secret
+		$this->return_url = 'http://rezstore.com/facebook/process.php';  //return url (url to script)
+		$this->homeurl = 'http://rezstore.com/facebook/';  //return to home
+		$this->fbPermissions = 'publish_stream,manage_pages';  //Required facebook permissions
+	}
+	 
+	function index(){
+		$this->home();
+	}
+	
+	function home(){
+	 $this->load->library('facebook/facebook');
+		if ($fbuser) {
+		  try {
+			 	$user_profile = $facebook->api('/me');
+				//Get user pages details using Facebook Query Language (FQL)
+				$fql_query = 'SELECT page_id, name, page_url FROM page WHERE page_id IN (SELECT page_id FROM page_admin WHERE uid='.$fbuser.')';
+				$postResults = $facebook->api(array( 'method' => 'fql.query', 'query' => $fql_query ));
+			} catch (FacebookApiException $e) {
+				echo $e->getMessage();
+				$fbuser = null;
+		  }
+		}else{
+				//Show login button for guest users
+				$loginUrl = $facebook->getLoginUrl(array('redirect_uri'=>$homeurl,'scope'=>$fbPermissions));
+				echo '<a href="'.$loginUrl.'"><img src="images/facebook-login.png" border="0"></a>';
+				$fbuser = null;
+		}
+
+		if($fbuser && empty($postResults))
+		{
+				/*
+				if user is logged in but FQL is not returning any pages, we need to make sure user does have a page
+				OR "manage_pages" permissions isn't granted yet by the user. 
+				Let's give user an option to grant application permission again.
+				*/
+				$loginUrl = $facebook->getLoginUrl(array('redirect_uri'=>$homeurl,'scope'=>$fbPermissions));
+				echo '<br />Could not get your page details!';
+				echo '<br /><a href="'.$loginUrl.'">Click here to try again!</a>'; 
+		
+		}elseif($fbuser && !empty($postResults)){
+			$this->load->view('home',$data);
+		}
+	}
+	
+	
+}
+//end of file
