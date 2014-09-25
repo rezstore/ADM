@@ -48,7 +48,7 @@
 			 $url=substr($r->url,0,40);
 			 $image=$r->image;
 			 if($image != ""){
-			 	$image=img(array("src"=>get_image_post($image),"width"=>"20px","height"=>"20px"));
+			 	$image=img(array("src"=>get_image_post($img),"width"=>"20px","height"=>"20px"));
 			 }
 			 
 			 $status=$r->status;
