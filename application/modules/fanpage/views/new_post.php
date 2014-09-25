@@ -22,26 +22,39 @@
         		Data Posting 
         </div>
 	<div class="portlet-content nopadding">
+	<script src="<?php echo get_js_family('jquery-1.5.2.min.js');?>"></script>
+	<script src="<?php echo get_js_family('jquery-ui.js');?>"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo get_jquery_css('style.css'); ?>">
+	<script>
+	  $(function() {
+	    $( "#date" ).datepicker();
+	  });
+	</script>
         <?php
-        echo "<table>";
+        $arr=array();
+        $fanpage=$this->m_fanpage->get_fb_page();
+        foreach($fanpage->result() as $res){
+          $arr[$res->page_id]=$res->pagename;
+        }
+        echo "<table style=''>";
 		echo form_open();
-		 echo "<tr style='border:1px solid;'>
+		 echo "<tr style='border-bottom:0px solid;'>
 		 	<td>Tanggal</td> <td>:</td>
-		 	 <td>".input('date_post')."</td>
+		 	 <td>".input('date_post','','id="date"')."</td>
 		 	</tr>";
-		 echo "<tr style='border:1px solid;'>
+		 echo "<tr style='border-bottom:0px solid;'>
 		 	<td>Page</td> <td>:</td>
-		 	 <td>".dropdown('page_id')."</td>
+		 	 <td>".dropdown('page_id',$arr)."</td>
 		 	</tr>";
-		 echo "<tr style='border:1px solid;'>
+		 echo "<tr style='border-bottom:0px solid;'>
 		 	<td>Message</td> <td>:</td>
 		 	 <td>".textarea('messages')."</td>
 		 	</tr>";
-		 echo "<tr style='border:1px solid;'>
-		 	<td style='border:1px solid;'>Url Share</td> <td>:</td>
+		 echo "<tr style='border-bottom:0px solid;'>
+		 	<td>Url Share</td> <td>:</td>
 		 	 <td>".input('url')."</td>
 		 	</tr>";
-		 echo "<tr style='border:1px solid;'>
+		 echo "<tr style='border-bottom:0px solid;'>
 		 	<td>Image</td> <td>:</td>
 		 	 <td>".upload('image')."</td>
 		 	</tr>";

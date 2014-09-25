@@ -55,6 +55,14 @@ class M_fanpage extends CI_Model
   	$sql="UPDATE fb_messages_post SET status=1 WHERE ID_post = $ID LIMIT 1";
   	return $this->db->query($sql);
   }
+  
+  function get_fb_page(){
+  	$sql="SELECT page_id,pagename FROM fb_fanpages WHERE 1";
+  	$q=$this->db->query($sql);
+  	return $q;
+  }
+  
+  
 }
 //end of file 
 
