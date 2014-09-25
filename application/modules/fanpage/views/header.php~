@@ -66,7 +66,7 @@ if (isset($active)){
 				  <span class="inner newsletter">Facebook</span>
 				 </span>
 				</a>
-			</li>
+			</li>  
 		
 			<li class="item middle" id="three">
 				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $r;?>">

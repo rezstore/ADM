@@ -69,7 +69,7 @@ class M_fanpage extends CI_Model
   	$url=$this->escape($url);
   	$filename=$this->escape($filename);
   	$sql="INSERT INTO fb_messages_post (`date_post`,`page_id`,`messages`,`url`,`image`) 
-  		VALUES ($date,$pageid,$text,$url,$filename)";
+  		VALUES ($date,$page_id,$text,$url,$filename)";
   	$this->db->query($sql);
   }
   

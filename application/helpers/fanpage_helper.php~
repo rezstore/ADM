@@ -15,7 +15,7 @@ function get_js_family($filename){
  return base_url('assets/js/jquery-family/'.$filename);
 }
 
-function get_image_post($filename='',$type=''){
+function get_image_post($filename='',$type){
  if($type == "basedir"){
   return PUBPATH.'assets/uploads/fanpage/'.$filename;
  }

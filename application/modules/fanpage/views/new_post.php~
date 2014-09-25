@@ -57,7 +57,7 @@
 		 	</tr>";
 		 echo "<tr style='border-bottom:0px solid;'>
 		 	<td>Image</td> <td>:</td>
-		 	 <td>".upload('userfile')."</td>
+		 	 <td>".upload('image')."</td>
 		 	</tr>";
 		 echo "<tr style='border-bottom:0px solid;text-align:right;'>
 		 	 <td colspan=3>".submit('submit','Simpan')."</td>
