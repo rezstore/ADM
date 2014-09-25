@@ -1,6 +1,0 @@
-<?php
-function get_css(){
- return base_url('assets/css/facebook/facebook.style.css');
-}
-
-?>
