@@ -11,6 +11,10 @@ class Fanpage extends CI_Controller {
 	var $page = ""; 
 	var $fbuser = "";
 	var $caption_post = ""; 
+	var $twt_appId = "";
+	var $twt_appSecret = "";
+	var $twt_token = "";
+	var $twt_token_secret = "";
 	
 	function __construct()
 	 {
@@ -30,6 +34,7 @@ class Fanpage extends CI_Controller {
 	 
 	function initials(){
 	 	$this->initial_fb();
+	 	$this->initial_twitter();
 	 }
 	
 	function initial_fb(){
@@ -48,10 +53,10 @@ class Fanpage extends CI_Controller {
 	function initial_twitter(){
 		$init=$this->m_fanpage->get_app_properties('twitter');
 		foreach($init->result() as $r){
-			$this->appId = $r->appId; //Facebook App ID
-			$this->appSecret = $r->appSecret; // Facebook App Secret
-			$this->token = $r->token;  //return url (url to script)
-			$this->token_secret = $r->token_secret;  //return to token secret
+			$this->twt_appId = $r->appId; //Facebook App ID
+			$this->twt_appSecret = $r->appSecret; // Facebook App Secret
+			$this->twt_token = $r->token;  //return url (url to script)
+			$this->twt_token_secret = $r->token_secret;  //return to token secret
 		}
 	}
 	 
@@ -144,6 +149,20 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
+	function post_to_twt_fanpage(){
+		$q=$this->m_fanpage->get_twitter_posting();
+		foreach($q->result() as $res){
+			$ID=$res->ID_post;
+			$fbuser=$res->UID;
+			$page=$res->page_id;
+			$message=$res->messages;
+			$url=$res->url;
+			$image=get_image_post($res->image);
+			$this->send_message_to_twitter($ID,$fbuser,$page,$message,$url,$image);
+		}
+	}
+	
+	# INSERT NEW FACEBOOK #
 	function insert_new_facebook(){
 		$data['title']="Insert New Facebook";
 		$data['active']="f";
@@ -197,7 +216,7 @@ class Fanpage extends CI_Controller {
 	}
 	
 	#######################################################################################################
-	
+	# FACEBOOK #
 	function send_message_to_fb($ID,$fbuser,$page,$message,$url,$image_source){
 		$param=array(
 			  'appId'  => $this->appId,
@@ -238,6 +257,36 @@ class Fanpage extends CI_Controller {
 		  }
 		}
 	}
+	
+	# TWITTER #
+	function send_message_to_twitter(){
+		$this->load->library('twitter/twitterpost');
+		$d=$this->m_fanpage->get_twitter_posting();
+		# INIT #
+		$appid=$this->twt_appId;
+		$appsc=$this->twt_appSecret;
+		$token=$this->twt_token;
+		$token_sc=$this->twt_token_secret;
+		
+		foreach($d->result() as $r){
+		 if ($appid != null){
+			 $message=$r->messages;
+			 $image=get_image_post($r->file_path);
+			 try {
+			  if ($image != ""){
+				$do=$this->twitterpost->post_message_with_image($appid,$appsc,$token,$token_sc,$message,$image);
+			  }else{
+			  	$do=$this->twitterpost->post_message($appid,$appsc,$token,$token_sc,$message);
+			  }
+			  $this->m->update_state_post($r->id);
+//			   redirect("fanpage/");
+			 }catch (Exception $e){
+			 	$e->getMessage();
+			 }
+		 }
+		}
+	}
+	
 	
 }
 //end of file
