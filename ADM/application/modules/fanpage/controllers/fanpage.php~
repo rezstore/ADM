@@ -97,7 +97,7 @@ class Fanpage extends CI_Controller {
 		 $pageid=$this->post('page_id');
 		 $text=$this->post('messages');
 		 $url=$this->post('url');
-		 echo var_dump($_POST);
+		 //echo var_dump($_POST);
 		 $filename=$this->post('image');
 		 
 		 $file=str_replace(array('.','jpg','png','gif','bmp'),'',$filename);
