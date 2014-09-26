@@ -109,10 +109,9 @@ class Fanpage extends CI_Controller {
 		 	 #SAVE TO DB #
 		 	 if($filename !== ''){
 		 	   $this->m_fanpage->update_fb_post($id,$date,$pageid,$text,$url,$filename);
-		 	   redirect(get_url('facebook'));
 		 	 }
 		 }
-		 exit();//	 
+		 exit();//redirect(get_url('facebook'));	 
 	 }
 	 # IF NOT POST 
 	 if ($type== "facebook"){
