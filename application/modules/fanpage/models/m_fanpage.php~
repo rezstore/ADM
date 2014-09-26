@@ -10,7 +10,7 @@ class M_fanpage extends CI_Model
    if ($type== "facebook"){
    	$sql="SELECT * FROM fb_applications WHERE 1";
    }elseif($type== "twitter"){
-   	$sql="SELECT * FROM twitter_applications WHERE 1";
+   	$sql="SELECT * FROM twitter_applications WHERE status=1 LIMIT 1";
    }else{
    	$sql="SELECT * FROM google_applications WHERE 1";
    }
@@ -53,7 +53,7 @@ class M_fanpage extends CI_Model
   }
   
   function get_twitter_posting(){
-  	$sql="SELECT twitter_messages_post.*,twitter_UID.UID 
+  	$sql="SELECT twitter_messages_post.*
   		FROM twitter_messages_post 
   		WHERE twitter_messages_post.date_post <= CURDATE() LIMIT 1";
   	$q=$this->db->query($sql);

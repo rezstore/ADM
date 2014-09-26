@@ -8,11 +8,11 @@ class M_fanpage extends CI_Model
   
   function get_app_properties($type){
    if ($type== "facebook"){
-   	$sql="SELECT * FROM fb_applications WHERE 1";
+   	$sql="SELECT * FROM fb_applications WHERE 1 LIMIT 1";
    }elseif($type== "twitter"){
-   	$sql="SELECT * FROM twitter_applications WHERE 1";
+   	$sql="SELECT * FROM twitter_applications WHERE status=1 LIMIT 1";
    }else{
-   	$sql="SELECT * FROM google_applications WHERE 1";
+   	$sql="SELECT * FROM google_applications WHERE 1 LIMIT 1";
    }
    $q=$this->db->query($sql);
    return $q;

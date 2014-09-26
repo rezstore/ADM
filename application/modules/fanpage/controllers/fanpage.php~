@@ -271,17 +271,19 @@ class Fanpage extends CI_Controller {
 		foreach($d->result() as $r){
 		 if ($appid != null){
 			 $message=$r->messages;
-			 $image=$this->app_folder("assets/post_images/".$r->file_path);
+			 $image=get_image_post($r->image);
 			 try {
-			  if ($image != ""){
+			  if ($image != ""){echo "1";
 				$do=$this->twitterpost->post_message_with_image($appid,$appsc,$token,$token_sc,$message,$image);
-			  }else{
+			  }else{echo "ad";
 			  	$do=$this->twitterpost->post_message($appid,$appsc,$token,$token_sc,$message);
 			  }
-			  $this->m->update_state_post($r->id);
+			  if ($do){
+			  	$this->m->update_state_post($r->id);
+			  }
 //			   redirect("fanpage/");
 			 }catch (Exception $e){
-			 	$e->getMessage();
+			 	echo $e->getMessage();
 			 }
 		 }
 		}
