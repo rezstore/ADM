@@ -8,6 +8,9 @@ require_once('twitteroauth.php');
 	$connection = new TwitterOAuth($c_key, $c_sc, $token, $secret);
 	// Post Update
 	$content = $connection->post('statuses/update', array('status' => $message));
+	if ($content){
+		return 1;
+	}else{return 0;}
   }
   
   function post_message_with_image($c_key,$c_sc,$token,$secret,$message,$image){

@@ -153,12 +153,10 @@ class Fanpage extends CI_Controller {
 		$q=$this->m_fanpage->get_twitter_posting();
 		foreach($q->result() as $res){
 			$ID=$res->ID_post;
-			$fbuser=$res->UID;
-			$page=$res->page_id;
 			$message=$res->messages;
 			$url=$res->url;
-			$image=get_image_post($res->image);
-			$this->send_message_to_twitter($ID,$fbuser,$page,$message,$url,$image);
+			$image=$res->image;
+			$this->send_message_to_twitter($ID,$message,$url,$image);
 		}
 	}
 	
@@ -259,34 +257,29 @@ class Fanpage extends CI_Controller {
 	}
 	
 	# TWITTER #
-	function send_message_to_twitter(){
+	function send_message_to_twitter($ID,$message,$url,$image){
 		$this->load->library('twitter/twitterpost');
-		$d=$this->m_fanpage->get_twitter_posting();
 		# INIT #
-		$appid=$this->twt_appId;
+		echo $appid=$this->twt_appId;
 		$appsc=$this->twt_appSecret;
 		$token=$this->twt_token;
 		$token_sc=$this->twt_token_secret;
 		
-		foreach($d->result() as $r){
-		 if ($appid != null){
-			 $message=$r->messages;
-			 $image=$r->image;
+		 if ($appid != null and $message != ""){
 			 try {
-			  if ($image != ""){echo "1";
+			  if ($image != ""){
 				$do=$this->twitterpost->post_message_with_image($appid,$appsc,$token,$token_sc,$message,get_image_post($image));
-			  }else{echo "ad";
+			  }else{
 			  	$do=$this->twitterpost->post_message($appid,$appsc,$token,$token_sc,$message);
 			  }
-			  if ($do){
-			  	$this->m->update_state_post($r->id);
+			  if ($do == 1){
+			  	//$this->m->update_state_post($r->id);
 			  }
 //			   redirect("fanpage/");
 			 }catch (Exception $e){
 			 	echo $e->getMessage();
 			 }
 		 }
-		}
 	}
 	
 	

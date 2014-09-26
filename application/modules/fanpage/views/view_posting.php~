@@ -44,7 +44,7 @@
 			 $id=$r->ID_post;
 			 $tgl=$r->date_post;
 			 $pageid=$r->page_id;
-			 $pagename="rezstore";
+			 $pagename=$r->pagename;
 			 $message=substr($r->messages,0,40);
 			 $url=substr($r->url,0,40);
 			 $image=$r->image;
