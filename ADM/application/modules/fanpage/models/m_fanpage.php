@@ -73,6 +73,29 @@ class M_fanpage extends CI_Model
   	$this->db->query($sql);
   }
   
+  # SELECT FOR EDIT #
+  
+  function select_fbpost_forEdit($id){
+  	$id=$this->escape($id);
+  	$sql="SELECT * FROM fb_messages_post WHERE ID_post= $id LIMIT 1";
+  	$q=$this->db->query($sql);
+  	return $q;
+  }
+  
+  # UPDATE POST 
+  function update_fb_post($id,$date,$pageid,$text,$url,$filename){
+  	$id=$this->escape($id);
+  	$date=$this->escape($date);
+  	$pageid=$this->escape($pageid);
+  	$text=$this->escape($text);
+  	$url=$this->escape($url);
+  	$filename=$this->escape($filename);
+  	$sql="UPDATE fb_messages_post 
+  		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
+  			WHERE ID_post=$id";
+  	$this->db->query($sql);
+  }
+  
   
 }
 //end of file 

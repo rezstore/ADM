@@ -37,6 +37,7 @@
             </thead>
             <tbody>
             <?php
+            $prefix=str_replace(' ','_',strtolower($title));
 		$no=1;
 		if (!isset($posting)){exit();}
 		 foreach($posting->result() as $r){
@@ -54,8 +55,8 @@
 			 $status=$r->status;
 			 if($no%2 == 0){$bg="#B9B9B9;";}
 			 if ($status==1){$bg="";$url_actions="";}else{$bg="#F3B4B4;";
-			 	$url_actions=anchor('facebook_post/edit/'.$id,'__','class="edit_icon"').nbs(2).
-			 			anchor('facebook_post/delete/'.$id,'__','class="delete_icon"');
+			 	$url_actions=anchor(get_url('edit/'.$prefix.'/'.$id),'__','class="edit_icon"').nbs(2).
+			 			anchor(get_url('delete/'.$id),'__','class="delete_icon"');
 			 }
               echo "<tr style='background:$bg'>
 		        <td width='34'><label>
@@ -77,7 +78,7 @@
                 <td colspan="5" align="right">
 				<!--  PAGINATION START  -->             
                     <div class="pagination">
-                    <a href="<?php echo get_url('insert_new_'.str_replace(' ','_',strtolower($title))); ?>" class="next">Input Data</a>
+                    <a href="<?php echo get_url('insert_new_'.$prefix); ?>" class="next">Input Data</a>
                     <span class="previous-off">&laquo; Previous</span>
                     <a href="query_41878854" class="next">Next &raquo;</a>
                     </div>  

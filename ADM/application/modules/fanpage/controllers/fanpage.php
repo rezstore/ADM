@@ -87,12 +87,53 @@ class Fanpage extends CI_Controller {
 		$this->load->view('view_posting',$data);
 	}
 	
+	# EDITING DATAS #
+	
+	function edit($type,$id){
+	 if ($_FILES){
+	 	$date=$this->post('date_post');
+		 	$dt=new DateTime($date);
+		 	$date=date_format($dt,'Y-m-d');
+		 $pageid=$this->post('page_id');
+		 $text=$this->post('messages');
+		 $url=$this->post('url');
+		 //echo var_dump($_POST);
+		 $filename=$this->post('image');
+		 
+		 $file=str_replace(array('.','jpg','png','gif','bmp'),'',$filename);
+		 if($date != ""){
+		  if ($_FILES["userfile"]["name"] != ""){
+			 $path=get_image_post('','basedir');
+			 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',$file,'TRUE');
+			 $filename=$this->uploading_file($config);
+		  }
+		 	 
+		 	 #SAVE TO DB #
+		 	 $this->m_fanpage->update_fb_post($id,$date,$pageid,$text,$url,$filename);
+		 }
+		 exit();	 
+	 }
+	 # IF NOT POST 
+	 if ($type== "facebook"){
+	 	$edit_post=$this->m_fanpage->select_fbpost_forEdit($id);
+	 }elseif($type== "googlep"){
+	 	$edit_post=$this->m_fanpage->select_gppost_forEdit($id);
+	 }else{
+	 	$edit_post=$this->m_fanpage->select_twtpost_forEdit($id);
+	 }
+	 $this->load->helper('form');
+	 $data['title']="Edit $type";
+	 $data['active']="f";
+	 $data['edit_post']=$edit_post;
+	 $this->load_header($data);
+	 $this->load->view('edit_post',$data);
+	}
 	
 	# FUNCTION FOR UPDATE TO WALL #
 	function post_to_fb_fanpage(){
 		$q=$this->m_fanpage->get_facebook_posting();
 		foreach($q->result() as $res){
-			echo $ID=$res->ID_post;
+			$ID=$res->ID_post;
 			$fbuser=$res->UID;
 			$page=$res->page_id;
 			$message=$res->messages;
@@ -115,7 +156,7 @@ class Fanpage extends CI_Controller {
 		 if($date != ""){
 			 $path=get_image_post('','basedir');
 			 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',date('sgid'));
-			 $filename=$this->uploading_file($config);
+			 echo $filename=$this->uploading_file($config);
 		 	 #SAVE TO DB #
 		 	 
 		 	 $this->m_fanpage->insert_new_fb_post($date,$pageid,$text,$url,$filename);
@@ -127,13 +168,14 @@ class Fanpage extends CI_Controller {
 		$this->load->view('new_post',$data);
 	}
 	
-	function initialing_upload_files($path,$types,$size,$width,$height,$filename){
+	function initialing_upload_files($path,$types,$size,$width,$height,$filename,$overwrite='FALSE'){
 		$config['upload_path'] = $path;
 		$config['allowed_types'] = $types;
 		$config['max_size']	= $size;
 		$config['max_width'] = $width;
 		$config['max_height'] = $height;
 		$config['file_name']=$filename;
+		$config['overwrite']=$overwrite;
 
 		return $config;
 	}
@@ -142,11 +184,12 @@ class Fanpage extends CI_Controller {
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload()){
 			$error = $this->upload->display_errors();
-			//echo var_dump($error);
+			echo var_dump($error);
 			return "";
 		}
 		else{
 			$data = array('upload_data' => $this->upload->data());
+			echo var_dump($data);
 			return $data['upload_data']['orig_name'];
 		}
 	}
