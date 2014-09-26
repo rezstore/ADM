@@ -93,7 +93,7 @@ class M_fanpage extends CI_Model
   	$sql="UPDATE fb_messages_post 
   		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
   			WHERE ID_post=$id";
-  	$this->db->query($sql);
+  	$this->db->query($sql);		
   }
   
   

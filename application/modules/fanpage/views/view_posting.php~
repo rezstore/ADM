@@ -46,6 +46,7 @@
 			 $pageid=$r->page_id;
 			 $pagename=$r->pagename;
 			 $message=substr($r->messages,0,40);
+			 $message_title=$r->messages;
 			 $url=substr($r->url,0,40);
 			 $image=$r->image;
 			 if($image != ""){
