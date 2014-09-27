@@ -34,7 +34,7 @@ class Fanpage extends CI_Controller {
 	 
 	function initials(){
 	 	$this->initial_fb();
-	 	$this->initial_twitter();
+	 	//$this->initial_twitter();
 	 }
 	
 	function initial_fb(){
@@ -50,8 +50,8 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
-	function initial_twitter(){
-		$init=$this->m_fanpage->get_app_properties('twitter');
+	function initial_twitter($id=''){
+		$init=$this->m_fanpage->get_app_properties('twitter',$id);
 		foreach($init->result() as $r){
 			$this->twt_appId = $r->appId; //Facebook App ID
 			$this->twt_appSecret = $r->appSecret; // Facebook App Secret
@@ -104,6 +104,7 @@ class Fanpage extends CI_Controller {
 		 $url=$this->post('url');
 		 //echo var_dump($_POST);
 		 $filename=$this->post('image');
+		 if ($filename == ""){$filename=date('sgid');}
 		 $file=str_replace(array('.','jpg','png','gif','bmp'),'',$filename);
 		 if($date != ""){
 		  if ($_FILES["userfile"]["name"] != ""){
@@ -112,24 +113,32 @@ class Fanpage extends CI_Controller {
 			 $filename=$this->uploading_file($config);
 		  }
 		 	 #SAVE TO DB #
-		 	 if($filename !== ''){
-		 	   $this->m_fanpage->update_fb_post($id,$date,$pageid,$text,$url,$filename);
-		 	   redirect(get_url('facebook'));
+		 	 if($text !== ''){
+		 	 	if ($type== "facebook"){
+			 	   $this->m_fanpage->update_fb_post($id,$date,$pageid,$text,$url,$filename);
+				 }elseif($type== "googlep"){
+				 }else{
+					$this->m_fanpage->update_twitter_post($id,$date,$pageid,$text,$url,$filename);
+				 }
+		 	   redirect(get_url($type));
 		 	 }
 		 }
-		 exit();//	 
 	 }
 	 # IF NOT POST 
 	 if ($type== "facebook"){
+	 	$active="f";
 	 	$edit_post=$this->m_fanpage->select_fbpost_forEdit($id);
 	 }elseif($type== "googlep"){
+	 	$active="g";
 	 	$edit_post=$this->m_fanpage->select_gppost_forEdit($id);
 	 }else{
+	 	$active="t";
 	 	$edit_post=$this->m_fanpage->select_twtpost_forEdit($id);
 	 }
+	 
 	 $this->load->helper('form');
 	 $data['title']="Edit $type";
-	 $data['active']="f";
+	 $data['active']=$active;
 	 $data['edit_post']=$edit_post;
 	 $this->load_header($data);
 	 $this->load->view('edit_post',$data);
@@ -152,6 +161,7 @@ class Fanpage extends CI_Controller {
 	function post_to_twt_fanpage(){
 		$q=$this->m_fanpage->get_twitter_posting();
 		foreach($q->result() as $res){
+			$ID=$res->ID_post;
 			$ID=$res->ID_post;
 			$message=$res->messages;
 			$url=$res->url;
@@ -176,7 +186,7 @@ class Fanpage extends CI_Controller {
 			 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',date('sgid'));
 			 $filename=$this->uploading_file($config);
 		 	 #SAVE TO DB #
-		 	 if ($filename !==""){
+		 	 if ($text !==""){
 		 	 	$this->m_fanpage->insert_new_fb_post($date,$pageid,$text,$url,$filename);
 			 }
 			 redirect(get_url('facebook'));	
@@ -186,6 +196,37 @@ class Fanpage extends CI_Controller {
 		$this->load_header($data);
 		$this->load->view('new_post',$data);
 	}
+	
+	function insert_new_twitter(){
+		$data['title']="Insert New Twitter";
+		$data['active']="t";
+		if($_FILES){
+		 $date=$this->post('date_post');
+		 	$dt=new DateTime($date);
+		 	$date=date_format($dt,'Y-m-d');
+		 $pageid=$this->post('page_id');
+		 $text=$this->post('messages');
+		 $url=$this->post('url');
+		 $filename='';
+		 $file=$_FILES["userfile"]["name"];
+		 if($date != "" and $file != ''){
+			 $path=get_image_post('','basedir');
+			 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',date('sgid'));
+			 $filename=$this->uploading_file($config);
+
+		 	 #SAVE TO DB #
+		 	 if ($text !==""){
+		 	 	$this->m_fanpage->insert_new_twitter_post($date,$pageid,$text,$url,$filename);
+			 }
+		 }
+			 redirect(get_url('twitter'));	
+		}
+		$this->load->helper('form');
+		$this->load_header($data);
+		$this->load->view('new_post',$data);
+	}
+	
+	# CONFIG TO UPLOAD IMAGE #
 	
 	function initialing_upload_files($path,$types,$size,$width,$height,$filename,$overwrite='FALSE'){
 		$config['upload_path'] = $path;
@@ -260,12 +301,12 @@ class Fanpage extends CI_Controller {
 	function send_message_to_twitter($ID,$message,$url,$image){
 		$this->load->library('twitter/twitterpost');
 		# INIT #
-		echo $appid=$this->twt_appId;
+		$appid=$this->twt_appId;
 		$appsc=$this->twt_appSecret;
 		$token=$this->twt_token;
 		$token_sc=$this->twt_token_secret;
 		
-		 if ($appid != null and $message == ""){
+		 if ($appid != null and $message != ""){
 			 try {
 			  if ($image != ""){
 				$do=$this->twitterpost->post_message_with_image($appid,$appsc,$token,$token_sc,$message,get_image_post($image));

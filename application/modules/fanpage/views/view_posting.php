@@ -35,6 +35,14 @@
                 <th width="90" scope="col">Actions</th>
               </tr>
             </thead>
+            <script>
+            	function delete_record(ID){
+            	 if (ID !== ""){
+            	 	del=confirm("hapus???");
+            	 	
+            	 }
+            	}
+            </script>
             <tbody>
             <?php
             $prefix=str_replace(' ','_',strtolower($title));
@@ -56,7 +64,7 @@
 			 if($no%2 == 0){$bg="#B9B9B9;";}
 			 if ($status==1){$bg="";$url_actions="";}else{$bg="#F3B4B4;";
 			 	$url_actions=anchor(get_url('edit/'.$prefix.'/'.$id),'__','class="edit_icon"').nbs(2).
-			 			anchor(get_url('delete/'.$id),'__','class="delete_icon"');
+			 			anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" onclick="delete_record('.$id.');"');
 			 }
               echo "<tr style='background:$bg'>
 		        <td width='34'><label>
@@ -90,6 +98,16 @@
         </form>
 	</div>
       </div>
+      <a href="#" onclick="tooltip.pop(this, '#demo3_tip', {overlay:true, position:4}); return false;">Click me</a>
+<div style="display:none;">
+    <div id="demo3_tip">
+        <form action="javascript-tooltip" method="post">
+            Name: <input type="text" name="name" />
+            <input type="submit" value="Login" />
+            <input type="button" value="Cancel" onclick="tooltip.hide()" />
+        </form>
+    </div>
+</div>
 <!--  END #PORTLETS -->  
    </div>
     <div class="clear"> </div>

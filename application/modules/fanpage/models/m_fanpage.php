@@ -18,6 +18,8 @@ class M_fanpage extends CI_Model
    return $q;
   }
   
+  # GET ALL FANPAGE DATAS #
+  
   function get_all_facebook_posting(){
   	$sql="SELECT fb_messages_post.*,fb_fanpages.pagename 
   		FROM fb_messages_post LEFT JOIN fb_fanpages 
@@ -68,11 +70,20 @@ class M_fanpage extends CI_Model
   	return $this->db->query($sql);
   }
   
+  # GETTING PAGE OF FANPAGE #
   function get_fb_page(){
   	$sql="SELECT page_id,pagename FROM fb_fanpages WHERE 1";
   	$q=$this->db->query($sql);
   	return $q;
   }
+  
+  function get_twitter_page(){
+  	$sql="SELECT `UID` as page_id, `user_name` as pagename FROM `twitter_UID` WHERE `status`=1";
+  	$q=$this->db->query($sql);
+  	return $q;
+  }
+  
+  # INSERT NEW RECORD #
   
   function insert_new_fb_post($date,$pageid,$text,$url,$filename){
   	$date=$this->escape($date);
@@ -81,6 +92,17 @@ class M_fanpage extends CI_Model
   	$url=$this->escape($url);
   	$filename=$this->escape($filename);
   	$sql="INSERT INTO fb_messages_post (`date_post`,`page_id`,`messages`,`url`,`image`) 
+  		VALUES ($date,$pageid,$text,$url,$filename)";
+  	$this->db->query($sql);
+  }
+  
+  function insert_new_twitter_post($date,$pageid,$text,$url,$filename){
+  	$date=$this->escape($date);
+  	$pageid=$this->escape($pageid);
+  	$text=$this->escape($text);
+  	$url=$this->escape($url);
+  	$filename=$this->escape($filename);
+  	$sql="INSERT INTO twitter_messages_post (`date_post`,`page_id`,`messages`,`url`,`image`) 
   		VALUES ($date,$pageid,$text,$url,$filename)";
   	$this->db->query($sql);
   }
@@ -94,6 +116,13 @@ class M_fanpage extends CI_Model
   	return $q;
   }
   
+  function select_twtpost_forEdit($id){
+  	$id=$this->escape($id);
+  	$sql="SELECT * FROM twitter_messages_post WHERE ID_post= $id LIMIT 1";
+  	$q=$this->db->query($sql);
+  	return $q;
+  }
+  
   # UPDATE POST 
   function update_fb_post($id,$date,$pageid,$text,$url,$filename){
   	$id=$this->escape($id);
@@ -103,6 +132,19 @@ class M_fanpage extends CI_Model
   	$url=$this->escape($url);
   	$filename=$this->escape($filename);
   	$sql="UPDATE fb_messages_post 
+  		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
+  			WHERE ID_post=$id";
+  	$this->db->query($sql);
+  }
+  
+  function update_twitter_post($id,$date,$pageid,$text,$url,$filename){
+  	$id=$this->escape($id);
+  	$date=$this->escape($date);
+  	$pageid=$this->escape($pageid);
+  	$text=$this->escape($text);
+  	$url=$this->escape($url);
+  	$filename=$this->escape($filename);
+  	$sql="UPDATE twitter_messages_post 
   		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
   			WHERE ID_post=$id";
   	$this->db->query($sql);

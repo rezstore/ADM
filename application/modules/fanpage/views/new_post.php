@@ -33,7 +33,13 @@
 	<style>td{ vertical-align:top;}</style>
         <?php
         $arr=array();
-        $fanpage=$this->m_fanpage->get_fb_page();
+        if ($active == "f"){
+		$fanpage=$this->m_fanpage->get_fb_page();
+        }elseif($active == "t"){
+        	$fanpage= $this->m_fanpage->get_twitter_page();
+        }else{
+        }
+        
         foreach($fanpage->result() as $res){
           $arr[$res->page_id]=$res->pagename;
         }
