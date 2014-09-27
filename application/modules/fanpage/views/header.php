@@ -24,7 +24,7 @@
 <div class="grid_16" id="header">
 <!-- MENU START -->
 <?php
-$g="";$t="";$f="";$r="";$u="";$s="";
+$g="";$t="";$f="";$l="";$u="";$s="";
 if (isset($active)){
 
  if ($active == "g"){ //googleP
@@ -33,8 +33,8 @@ if (isset($active)){
  	$t="current";
  }elseif($active == "f"){ //facebook
  	$f="current";
- }elseif($active == "r"){ //report
- 	$r="current";
+ }elseif($active == "l"){ //report
+ 	$l="current";
  }elseif($active == "u"){ //users
  	$u="current";
  }elseif($active == "s"){ //setting
@@ -69,7 +69,7 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="three">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $r;?>">
+				<a href="<?php echo get_url('report'); ?>"class="main <?php echo '';?>">
 				 <span class="outer">
 				  <span class="inner reports png">Reports</span>
 				  </span>
@@ -77,7 +77,7 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="four">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $u;?>">
+				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo '';?>">
 				 <span class="outer">
 				  <span class="inner users">Users</span>
 				  </span>
@@ -85,7 +85,7 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="five">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo '';?>">
+				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $s;?>">
 				 <span class="outer">
 				  <span class="inner media_library">Media Library</span>
 				 </span>
@@ -93,9 +93,9 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="six">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo '';?>">
+				<a href="<?php echo get_url('log'); ?>"class="main <?php echo $l;?>">
 				 <span class="outer">
-				  <span class="inner event_manager">Event Manager</span>
+				  <span class="inner event_manager">Log</span>
 				 </span>
 				</a>
 			</li>       

@@ -295,6 +295,15 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
+	function log(){
+		$user=$this->userdata;
+		$data['title']="Log Activity";
+		$data['active']="l";
+		$data['datas']=$this->m_fanpage->select_log($user);
+		$this->load_header($data);
+		$this->load->view('log_data_activity',$data);
+	}
+	
 	#######################################################################################################
 	# FACEBOOK #
 	function send_message_to_fb($ID,$fbuser,$page,$message,$url,$image_source){

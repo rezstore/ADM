@@ -195,6 +195,14 @@ class M_fanpage extends CI_Model
   	$this->db->query($sql);
   }
   
+  # SELECT LOG #
+  function select_log($user){
+	$user=$this->escape($user);
+	$sql="SELECT * FROM user_activities WHERE user=$user";
+	$q=$this->db->query($sql);
+	return $q;
+  }
+  
 }
 //end of file 
 
