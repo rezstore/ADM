@@ -33,7 +33,6 @@
 				<label>Password: <a href="#" rel="forgot_password" class="forgot linkform">Lupa password?</a></label>
 				<input type="password" name='pass' autocomplete="off" />
 			</div>
-<br>
 			<div class="bottom">
 				<input type="submit" value="Login"></input>
 				<div class="clear"></div>

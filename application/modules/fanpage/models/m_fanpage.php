@@ -100,7 +100,7 @@ class M_fanpage extends CI_Model
   	return $q;
   }
   
-  # INSERT NEW RECORD #
+  # INSERT NEW RECORD POSTING#
   
   function insert_new_fb_post($date,$pageid,$text,$url,$filename){
   	$date=$this->escape($date);
@@ -167,6 +167,33 @@ class M_fanpage extends CI_Model
   	$this->db->query($sql);
   }
   
+  # GET IMAGE #
+  function get_image_from_post($type,$id){
+  	$id=$this->escape($id);
+  	if ($type== "t"){
+  	 $sql="SELECT image FROM twitter_messages_post WHERE ID_post = $id LIMIT 1";
+  	}elseif($type== "f"){
+  	 $sql="SELECT image FROM fb_messages_post WHERE ID_post = $id LIMIT 1";
+  	}else{
+  	 $sql="";
+  	}
+  	$q=$this->db->query($sql);
+  	$image='';
+  	foreach($q->result() as $r){
+  		$image=$r->image;
+  	}
+  	return $image;
+  }
+  
+  # INSERT ACTIVITIES #
+  function insert_new_activity($user,$text,$type){
+  	$user=$this->escape($user);
+  	$text=$this->escape($text);
+  	$type=$this->escape($type);
+  	$sql="INSERT INTO user_activities (`user`,`date_time`,`type`,`message`) 
+  		VALUES ($user,NOW(),$type,$text)";
+  	$this->db->query($sql);
+  }
   
 }
 //end of file 

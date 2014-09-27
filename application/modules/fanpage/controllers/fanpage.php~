@@ -15,12 +15,14 @@ class Fanpage extends CI_Controller {
 	var $twt_appSecret = "";
 	var $twt_token = "";
 	var $twt_token_secret = "";
+	var $userdata = "";
 	
 	function __construct()
 	 {
 		parent::__construct();
 		$this->load->helper(array('url','html','fanpage'));
 		$this->load->model('m_fanpage');
+		$this->get_session();
 	 }
 	 
 	function post($post){
@@ -58,6 +60,15 @@ class Fanpage extends CI_Controller {
 			$this->twt_token_secret = $r->token_secret;  //return to token secret
 		}
 	}
+	
+	function get_session(){
+		$this->load->library('session');
+		$user=$this->session->userdata('user_account');
+		if ($user == ""){
+			redirect('login');
+		}
+		$this->userdata=$user;
+	}
 	 
 	function index(){
 		$this->initials();
@@ -66,6 +77,13 @@ class Fanpage extends CI_Controller {
 	
 	function load_header($data){
 		$this->load->view('header',$data);
+	}
+	
+	function insert_activity($param){
+		echo "asd".$user=$this->userdata;
+		$text=$param['message'];
+		$type=$param['type'];
+		$this->m_fanpage->insert_new_activity($user,$text,$type);
 	}
 	
 	function facebook(){
@@ -120,6 +138,8 @@ class Fanpage extends CI_Controller {
 				 }else{
 					$this->m_fanpage->update_twitter_post($id,$date,$pageid,$text,$url,$filename);
 				 }
+				 $param=array('message'=>'mengubah record dengan ID='.$id,'type'=>$type);
+				 $this->insert_activity($param);
 		 	   redirect(get_url($type));
 		 	 }
 		 }
@@ -145,14 +165,18 @@ class Fanpage extends CI_Controller {
 	}
 	
 	function delete($type,$id){
+		$image=$this->m_fanpage->get_image_from_post($type,$id);
 		$this->m_fanpage->delete_posting($type,$id);
+		if (file_exists(get_image_post($image,"basedir"))){
+			unlink(get_image_post($image,"basedir"));
+		}
 		if ($type== "t"){
 			$uri="twitter";
 	  	}elseif($type== "f"){
 	  		$uri="facebook";
 	  	}else{
 	  	}
-	  	redirect($uri);
+	  	redirect(get_url($uri));
 	}
 	
 	# FUNCTION FOR UPDATE TO WALL #
@@ -202,6 +226,8 @@ class Fanpage extends CI_Controller {
 		 	 if ($text !==""){
 		 	 	$this->m_fanpage->insert_new_fb_post($date,$pageid,$text,$url,$filename);
 			 }
+			 $param=array('message'=>'menambah record baru dengan tgl post='.$date,'type'=>"facebook");
+			 $this->insert_activity($param);
 			 redirect(get_url('facebook'));	
 		 }
 		}
@@ -231,6 +257,8 @@ class Fanpage extends CI_Controller {
 		 	 if ($text !==""){
 		 	 	$this->m_fanpage->insert_new_twitter_post($date,$pageid,$text,$url,$filename);
 			 }
+			 $param=array('message'=>'menambah record baru dengan tgl post='.$date,'type'=>"twitter");
+			 $this->insert_activity($param);
 		 }
 			 redirect(get_url('twitter'));	
 		}
