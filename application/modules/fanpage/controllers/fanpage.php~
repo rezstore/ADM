@@ -21,7 +21,6 @@ class Fanpage extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('url','html','fanpage'));
 		$this->load->model('m_fanpage');
-		$this->initials();
 	 }
 	 
 	function post($post){
@@ -61,6 +60,7 @@ class Fanpage extends CI_Controller {
 	}
 	 
 	function index(){
+		$this->initials();
 		$this->facebook();
 	}
 	
@@ -144,6 +144,17 @@ class Fanpage extends CI_Controller {
 	 $this->load->view('edit_post',$data);
 	}
 	
+	function delete($type,$id){
+		$this->m_fanpage->delete_posting($type,$id);
+		if ($type== "t"){
+			$uri="twitter";
+	  	}elseif($type== "f"){
+	  		$uri="facebook";
+	  	}else{
+	  	}
+	  	redirect($uri);
+	}
+	
 	# FUNCTION FOR UPDATE TO WALL #
 	function post_to_fb_fanpage(){
 		$q=$this->m_fanpage->get_facebook_posting();
@@ -162,7 +173,9 @@ class Fanpage extends CI_Controller {
 		$q=$this->m_fanpage->get_twitter_posting();
 		foreach($q->result() as $res){
 			$ID=$res->ID_post;
-			$ID=$res->ID_post;
+			$page_id=$res->page_id;
+				# SETTING APP #
+				$this->initial_twitter($page_id);
 			$message=$res->messages;
 			$url=$res->url;
 			$image=$res->image;

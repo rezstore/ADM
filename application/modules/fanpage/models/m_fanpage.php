@@ -62,6 +62,23 @@ class M_fanpage extends CI_Model
   	return $q;
   }
   
+  # DELETE RECORD #
+  
+  function delete_posting($type,$id){
+  	$id=$this->escape($id);
+  	if ($type== "t"){
+  	 $sql="DELETE FROM twitter_messages_post WHERE ID_post=$id LIMIT 1";
+  	}elseif($type== "f"){
+  	 $sql="DELETE FROM fb_messages_post WHERE ID_post=$id LIMIT 1";
+  	}else{
+  	 $sql="";
+  	}
+  	
+  	if ($sql != ""){
+  		$this->db->query($sql);
+  	}
+  }
+  
   # UPDATE STATUS POSTING #
   
   function update_facebook_posting_status($ID){

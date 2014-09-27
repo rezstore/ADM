@@ -21,7 +21,6 @@ class Fanpage extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('url','html','fanpage'));
 		$this->load->model('m_fanpage');
-		$this->initials();
 	 }
 	 
 	function post($post){
@@ -61,6 +60,7 @@ class Fanpage extends CI_Controller {
 	}
 	 
 	function index(){
+		$this->initials();
 		$this->facebook();
 	}
 	
@@ -142,6 +142,17 @@ class Fanpage extends CI_Controller {
 	 $data['edit_post']=$edit_post;
 	 $this->load_header($data);
 	 $this->load->view('edit_post',$data);
+	}
+	
+	function delete($type,$id){
+		$this->m_fanpage->delete_posting($type,$id);
+		if ($type== "t"){
+			$uri="twitter";
+	  	}elseif($type== "f"){
+	  		$uri="facebook";
+	  	}else{
+	  	}
+	  	redirect(get_url($uri));
 	}
 	
 	# FUNCTION FOR UPDATE TO WALL #

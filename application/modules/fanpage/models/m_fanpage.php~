@@ -62,6 +62,23 @@ class M_fanpage extends CI_Model
   	return $q;
   }
   
+  # DELETE RECORD #
+  
+  function delete_posting($type,$id){
+  	$id=$this->escape($id);
+  	if ($type== "t"){
+  	 $sql="DELETE FROM twitter_messages_post WHERE ID_post=$id LIMIT 1";
+  	}elseif($type== "f"){
+  	 $sql="DELETE FROM fb_messages_post WHERE ID_post=$id LIMIT 1";
+  	}else{
+  	 $sql="";
+  	}
+  	
+  	if ($sql != ""){
+  		$this->db->query($sql);
+  	}
+  }
+  
   # UPDATE STATUS POSTING #
   
   function update_facebook_posting_status($ID){
@@ -132,6 +149,19 @@ class M_fanpage extends CI_Model
   	$url=$this->escape($url);
   	$filename=$this->escape($filename);
   	$sql="UPDATE fb_messages_post 
+  		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
+  			WHERE ID_post=$id";
+  	$this->db->query($sql);
+  }
+  
+  function update_twitter_post($id,$date,$pageid,$text,$url,$filename){
+  	$id=$this->escape($id);
+  	$date=$this->escape($date);
+  	$pageid=$this->escape($pageid);
+  	$text=$this->escape($text);
+  	$url=$this->escape($url);
+  	$filename=$this->escape($filename);
+  	$sql="UPDATE twitter_messages_post 
   		SET date_post=$date,page_id=$pageid,messages=$text,url=$url,image=$filename 
   			WHERE ID_post=$id";
   	$this->db->query($sql);

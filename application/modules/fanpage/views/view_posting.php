@@ -36,10 +36,12 @@
               </tr>
             </thead>
             <script>
-            	function delete_record(ID){
+            	function delete_record(type,ID){
             	 if (ID !== ""){
-            	 	del=confirm("hapus???");
-            	 	
+            	 	if (confirm("hapus???") == 1){
+            	 		url="<?php echo get_url('delete/"+ type +"/"+ ID +"'); ?>";
+		    	 	document.location=url;
+            	 	}
             	 }
             	}
             </script>
@@ -64,7 +66,7 @@
 			 if($no%2 == 0){$bg="#B9B9B9;";}
 			 if ($status==1){$bg="";$url_actions="";}else{$bg="#F3B4B4;";
 			 	$url_actions=anchor(get_url('edit/'.$prefix.'/'.$id),'__','class="edit_icon"').nbs(2).
-			 			anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" onclick="delete_record('.$id.');"');
+			 			anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" onclick="delete_record(\''.$active.'\','.$id.');"');
 			 }
               echo "<tr style='background:$bg'>
 		        <td width='34'><label>
@@ -98,16 +100,7 @@
         </form>
 	</div>
       </div>
-      <a href="#" onclick="tooltip.pop(this, '#demo3_tip', {overlay:true, position:4}); return false;">Click me</a>
-<div style="display:none;">
-    <div id="demo3_tip">
-        <form action="javascript-tooltip" method="post">
-            Name: <input type="text" name="name" />
-            <input type="submit" value="Login" />
-            <input type="button" value="Cancel" onclick="tooltip.hide()" />
-        </form>
-    </div>
-</div>
+      
 <!--  END #PORTLETS -->  
    </div>
     <div class="clear"> </div>
