@@ -47,33 +47,15 @@
             </script>
             <tbody>
             <?php
-            $prefix=str_replace(' ','_',strtolower($title));
 			$bg="";
 		$no=1;
-		if (!isset($datas)){exit();}
-		 foreach($datas->result() as $r){
-			 $ID=$r->ID;
-			 $user=$r->user;
-			 $tgl=$r->date_time;
-			 $type=$r->type;
-			 $message=$r->message;
-			 if($no%2 == 0){$bg="#B9B9B9;";}else{$bg="";}
-			 	$url_actions=anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" 
-					onclick="delete_record(\''.$active.'\','.$ID.');"');
-			
-              echo "<tr style=background:".$bg.">
-		        <td width='34'><label>
-		            <input type='checkbox' name='checkbox' id='checkbox' />
-		        </label></td>
-                <td>".$no."</td>
-		        <td>".$tgl."</td>
-		        <td>".$user."</td>
-		        <td>".$type."</td>
-		        <td>".$message."</td>
-		        <td width='90'>".$url_actions."</td>
-              </tr>";
-			  $no++;
-              }
+		if (!isset($gal)){exit();}
+		 foreach($gal->result() as $r){
+			 echo "<div class='gallery'>
+				
+					</div>";
+			 
+         }
               ?>
               <tr class="footer">
                 <td colspan="3">	
