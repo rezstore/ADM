@@ -31,6 +31,27 @@ class M_fanpage extends CI_Model
 	return $q;
   }
   
+  function set_dafault_app($app){
+	$app=$this->escape($app);
+	$sql="UPDATE fb_applications SET status=0 where 1";
+	$this->db->query($sql);
+	$sql2="UPDATE fb_applications SET status=1 where appid=$app";
+	$this->db->query($sql2);
+  }
+  
+  # INSERT NEW APP#
+  function insert_new_fb_application($app_name,$appid,$appsc,$return_url,$home_url,$permisions,$token){
+	$app_name=$this->escape($app_name);
+	$appid=$this->escape($appid);
+	$appsc=$this->escape($appsc);
+	$return_url=$this->escape($return_url);
+	$home_url=$this->escape($home_url);
+	$permisions=$this->escape($permisions);
+	$token=$this->escape($token);
+	$sql="INSERT INTO fb_applications (`app_name`,`appId`,`appSecret`,`return_url`,`homeurl`,`fbPermissions`,`token`)
+		VALUES ($app_name,$appid,$appsc,$return_url,$home_url,$permisions,$token)";
+	$this->db->query($sql);
+  }
   # GALLERY #
   function select_image_from_postings(){
 	$sql="SELECT image FROM fb_messages_post UNION SELECT image FROM twitter_messages_post";

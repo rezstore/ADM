@@ -332,10 +332,29 @@ class Fanpage extends CI_Controller {
 		$data['title']="New Aplication";
 		$data['active']="s";
 		$data['sub']="fb_new";
+		if ($_POST){
+		 $app_name=$this->post('app_name');
+		 $appid=$this->post('appid');
+		 $appsc=$this->post('appSecret');
+		 $return_url=$this->post('return_url');
+		 $homeurl=$this->post('homeurl');
+		 $permisions=$this->post('fb_permisions');
+		 $token=$this->post('token');
+		 $this->m_fanpage->insert_new_fb_application($app_name,$appid,$appsc,$return_url,$homeurl,$permisions,$token);
+		 $param=array('message'=>'input aplikasi facebook baru dengan appId='.$appid,'type'=>'facebook');
+		 $this->insert_activity($param);
+		}
 		$this->load_header($data);
 		$this->load->view('settings',$data);
 	}
 	
+	function set_defult_app(){
+		if ($_POST){
+		 $app=$this->post('app');
+		 $this->m_fanpage->set_dafault_app($app);
+		 redirect('fanpage/settings');
+		}
+	}
 	
 	#######################################################################################################
 	# FACEBOOK #
