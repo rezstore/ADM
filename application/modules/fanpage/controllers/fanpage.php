@@ -176,6 +176,8 @@ class Fanpage extends CI_Controller {
 	  		$uri="facebook";
 	  	}else{
 	  	}
+		$param=array('message'=>"hapus record dengan id= $id",'type'=>$uri);
+		$this->insert_activity($param);
 	  	redirect(get_url($uri));
 	}
 	
@@ -295,6 +297,14 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
+	# SETTING #
+	function settings(){
+		$data['title']="Settings";
+		$data['active']="s";
+		$this->load_header($data);
+		$this->load->view('settings',$data);
+	}
+	# LOG #
 	function log(){
 		$user=$this->userdata;
 		$data['title']="Log Activity";
@@ -303,6 +313,17 @@ class Fanpage extends CI_Controller {
 		$this->load_header($data);
 		$this->load->view('log_data_activity',$data);
 	}
+	
+	function gallery(){
+		$user=$this->userdata;
+		$data['title']="Gallery";
+		$data['active']="m";
+		$data['gal']=$this->m_fanpage->select_image_from_postings();
+		$this->load_header($data);
+		$this->load->view('galery',$data);
+	}
+	
+	
 	
 	#######################################################################################################
 	# FACEBOOK #

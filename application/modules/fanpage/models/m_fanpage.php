@@ -18,6 +18,12 @@ class M_fanpage extends CI_Model
    return $q;
   }
   
+  # GALLERY #
+  function select_image_from_postings(){
+	$sql="SELECT image FROM fb_messages_post UNION SELECT image FROM twitter_messages_post";
+	$q=$this->db->query($sql);
+	return $q;
+  }
   # GET ALL FANPAGE DATAS #
   
   function get_all_facebook_posting(){

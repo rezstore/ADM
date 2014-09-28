@@ -7,6 +7,9 @@ a:hover { text-decoration: underline; color: #C00; }
 #textcontent { padding:10px !important; width:900px !important; } 
 #wrapper { padding-bottom:10px !important; background:url(images/bg_content_bottom.gif) center bottom no-repeat; }
 #footer { text-align:center; padding:15px 0px; color: #666; font-size:11px; }
+.image_gallery{
+	padding:2px; height:100px; width:100px; margin:2px; border:1px solid #D23333; float:left;
+}
 .hidden { display:none; }
 .text { padding:10px 15px; }
 .nopadding { padding:0px !important; }

@@ -51,9 +51,11 @@
 		$no=1;
 		if (!isset($gal)){exit();}
 		 foreach($gal->result() as $r){
+			if (file_exists(get_image_post($r->image,'basedir'))){
 			 echo "<div class='gallery'>
-				
+						".img(array('src'=>get_image_post($r->image),'width'=>'100px','height'=>'100px','class'=>'image_gallery'))."
 					</div>";
+			}
 			 
          }
               ?>

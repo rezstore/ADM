@@ -24,7 +24,7 @@
 <div class="grid_16" id="header">
 <!-- MENU START -->
 <?php
-$g="";$t="";$f="";$l="";$u="";$s="";
+$g="";$t="";$f="";$l="";$g="";$s="";
 if (isset($active)){
 
  if ($active == "g"){ //googleP
@@ -33,10 +33,10 @@ if (isset($active)){
  	$t="current";
  }elseif($active == "f"){ //facebook
  	$f="current";
- }elseif($active == "l"){ //report
+ }elseif($active == "l"){ //log
  	$l="current";
- }elseif($active == "u"){ //users
- 	$u="current";
+ }elseif($active == "g"){ //users
+ 	$g="current";
  }elseif($active == "s"){ //setting
  	$s="current";
  }
@@ -85,9 +85,9 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="five">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $s;?>">
+				<a href="<?php echo get_url('gallery'); ?>"class="main <?php echo $g;?>">
 				 <span class="outer">
-				  <span class="inner media_library">Media Library</span>
+				  <span class="inner media_library">Gallery</span>
 				 </span>
 				</a>
 			</li>
@@ -100,7 +100,7 @@ if (isset($active)){
 				</a>
 			</li>       
 			<li class="item last" id="eight">
-				<a href="<?php echo get_url('fanpage'); ?>"class="main <?php echo $s;?>">
+				<a href="<?php echo get_url('settings'); ?>"class="main <?php echo $s;?>">
 				 <span class="outer">
 				  <span class="inner settings">Settings</span>
 				 </span>
