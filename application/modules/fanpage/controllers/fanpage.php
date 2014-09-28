@@ -299,11 +299,14 @@ class Fanpage extends CI_Controller {
 	
 	# SETTING #
 	function settings(){
+		$this->load->helper('form');
 		$data['title']="Settings";
 		$data['active']="s";
+		$data['sub']="fb_setting";
 		$this->load_header($data);
 		$this->load->view('settings',$data);
 	}
+	
 	# LOG #
 	function log(){
 		$user=$this->userdata;
@@ -323,6 +326,15 @@ class Fanpage extends CI_Controller {
 		$this->load->view('galery',$data);
 	}
 	
+	# NEW APPLICATION #
+	function new_fb_application(){
+		$this->load->helper('form');
+		$data['title']="New Aplication";
+		$data['active']="s";
+		$data['sub']="fb_new";
+		$this->load_header($data);
+		$this->load->view('settings',$data);
+	}
 	
 	
 	#######################################################################################################

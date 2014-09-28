@@ -18,6 +18,19 @@ class M_fanpage extends CI_Model
    return $q;
   }
   
+  # SELECT DEFAULT APP FB #
+  function select_default_fb_app(){
+	$sql="SELECT app_name,appId FROM fb_applications WHERE status=1 LIMIT 1";
+	$q=$this->db->query($sql);
+	return $q;
+  }
+  
+  function select_all_fb_app(){
+	$sql="SELECT app_name,appId FROM fb_applications WHERE 1";
+	$q=$this->db->query($sql);
+	return $q;
+  }
+  
   # GALLERY #
   function select_image_from_postings(){
 	$sql="SELECT image FROM fb_messages_post UNION SELECT image FROM twitter_messages_post";
