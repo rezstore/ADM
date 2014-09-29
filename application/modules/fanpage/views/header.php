@@ -24,7 +24,7 @@
 <div class="grid_16" id="header">
 <!-- MENU START -->
 <?php
-$g="";$t="";$f="";$l="";$g="";$s="";
+$g="";$t="";$f="";$l="";$g="";$s="";$r="";
 if (isset($active)){
 
  if ($active == "g"){ //googleP
@@ -39,6 +39,8 @@ if (isset($active)){
  	$g="current";
  }elseif($active == "s"){ //setting
  	$s="current";
+ }elseif($active == "r"){ //setting
+ 	$r="current";
  }
 }
 ?>
@@ -69,7 +71,7 @@ if (isset($active)){
 			</li>
 		
 			<li class="item middle" id="three">
-				<a href="<?php echo get_url('report'); ?>"class="main <?php echo '';?>">
+				<a href="<?php echo get_url('report'); ?>"class="main <?php echo $r;?>">
 				 <span class="outer">
 				  <span class="inner reports png">Reports</span>
 				  </span>

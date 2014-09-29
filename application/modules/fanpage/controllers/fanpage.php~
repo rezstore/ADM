@@ -80,7 +80,7 @@ class Fanpage extends CI_Controller {
 	}
 	
 	function insert_activity($param){
-		echo "asd".$user=$this->userdata;
+		$user=$this->userdata;
 		$text=$param['message'];
 		$type=$param['type'];
 		$this->m_fanpage->insert_new_activity($user,$text,$type);
@@ -108,6 +108,14 @@ class Fanpage extends CI_Controller {
 		$data['posting']=$this->m_fanpage->get_all_googleP_posting();
 		$this->load_header($data);
 		$this->load->view('view_posting',$data);
+	}
+	
+	function report(){
+		$data['title']="Report";
+		$data['active']="r";
+		$this->load_header($data);
+		$data['c']=$this;
+		$this->load->view('report',$data);
 	}
 	
 	# EDITING DATAS #
@@ -176,6 +184,8 @@ class Fanpage extends CI_Controller {
 	  		$uri="facebook";
 	  	}else{
 	  	}
+		$param=array('message'=>"hapus record dengan id= $id",'type'=>$uri);
+		$this->insert_activity($param);
 	  	redirect(get_url($uri));
 	}
 	
@@ -295,6 +305,65 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
+	# SETTING #
+	function settings(){
+		$this->load->helper('form');
+		$data['title']="Settings";
+		$data['active']="s";
+		$data['sub']="fb_setting";
+		$this->load_header($data);
+		$this->load->view('settings',$data);
+	}
+	
+	# LOG #
+	function log(){
+		$user=$this->userdata;
+		$data['title']="Log Activity";
+		$data['active']="l";
+		$data['datas']=$this->m_fanpage->select_log($user);
+		$this->load_header($data);
+		$this->load->view('log_data_activity',$data);
+	}
+	
+	function gallery(){
+		$user=$this->userdata;
+		$data['title']="Gallery";
+		$data['active']="m";
+		$data['gal']=$this->m_fanpage->select_image_from_postings();
+		$this->load_header($data);
+		$this->load->view('galery',$data);
+	}
+	
+	# NEW APPLICATION #
+	function new_fb_application(){
+		$this->load->helper('form');
+		$data['title']="New Aplication";
+		$data['active']="s";
+		$data['sub']="fb_new";
+		if ($_POST){
+		 $app_name=$this->post('app_name');
+		 $appid=$this->post('appid');
+		 $appsc=$this->post('appSecret');
+		 $return_url=$this->post('return_url');
+		 $homeurl=$this->post('homeurl');
+		 $permisions=$this->post('fb_permisions');
+		 $token=$this->post('token');
+		 $this->m_fanpage->insert_new_fb_application($app_name,$appid,$appsc,$return_url,$homeurl,$permisions,$token);
+		 $param=array('message'=>'input aplikasi facebook baru dengan appId='.$appid,'type'=>'facebook');
+		 $this->insert_activity($param);
+		}
+		$this->load_header($data);
+		$this->load->view('settings',$data);
+	}
+	
+	function set_defult_app(){
+		if ($_POST){
+		 $app=$this->post('app');
+		 $this->m_fanpage->set_dafault_app($app);
+		 redirect('fanpage/settings');
+		}
+	}
+	
 	#######################################################################################################
 	# FACEBOOK #
 	function send_message_to_fb($ID,$fbuser,$page,$message,$url,$image_source){
@@ -363,6 +432,27 @@ class Fanpage extends CI_Controller {
 			 }
 		 }
 	}
+	
+	# CHART #
+	function get_datas(){
+	 	$row=array();
+			$s=$this->m_fanpage->get_activity_chart($this->userdata);
+			$n=1;
+			foreach($s->result() as $r){
+			 	if ($n==1){
+				 	$coll[]=array("id"=>"","label"=>"Topping","type"=>"string","pattern"=>"");
+				 	$coll[]=array("id"=>"","label"=>$r->type,"type"=>"number","pattern"=>"");
+			 	}
+				$v1=array("v"=>$r->date);
+				$v2=array("v"=>$r->jumlah);
+			 	$row=array($v1,$v2);
+				$rs[]=array("c"=>$row);
+				$row="";
+				$n++;
+			 }
+	 	$b=array("cols"=>$coll,"rows"=>$rs);
+		echo json_encode($b);
+	 }
 	
 	
 }

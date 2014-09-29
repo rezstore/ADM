@@ -243,6 +243,16 @@ class M_fanpage extends CI_Model
 	return $q;
   }
   
+  ## 
+  function get_activity_chart($username){
+  	$user=$this->escape($username);
+  	$sql="SELECT count(`p`.`date`)as `jumlah`,p.* FROM (SELECT `user`,DATE(`date_time`) as date,`type`,`message` 
+		FROM `user_activities` WHERE `user`=$user)p 
+		 WHERE 1 GROUP BY date";
+	$q=$this->db->query($sql);
+	return $q;
+  }
+  
 }
 //end of file 
 

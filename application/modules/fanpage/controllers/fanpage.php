@@ -110,6 +110,14 @@ class Fanpage extends CI_Controller {
 		$this->load->view('view_posting',$data);
 	}
 	
+	function report(){
+		$data['title']="Report";
+		$data['active']="r";
+		$this->load_header($data);
+		$data['c']=$this;
+		$this->load->view('report',$data);
+	}
+	
 	# EDITING DATAS #
 	
 	function edit($type,$id){
@@ -424,6 +432,27 @@ class Fanpage extends CI_Controller {
 			 }
 		 }
 	}
+	
+	# CHART #
+	function get_datas(){
+	 	$row=array();
+			$s=$this->m_fanpage->get_activity_chart($this->userdata);
+			$n=1;
+			foreach($s->result() as $r){
+			 	if ($n==1){
+				 	$coll[]=array("id"=>"","label"=>"Topping","type"=>"string","pattern"=>"");
+				 	$coll[]=array("id"=>"","label"=>"jumlah","type"=>"number","pattern"=>"");
+			 	}
+				$v1=array("v"=>$r->date);
+				$v2=array("v"=>$r->jumlah);
+			 	$row=array($v1,$v2);
+				$rs[]=array("c"=>$row);
+				$row="";
+				$n++;
+			 }
+	 	$b=array("cols"=>$coll,"rows"=>$rs);
+		echo json_encode($b);
+	 }
 	
 	
 }
