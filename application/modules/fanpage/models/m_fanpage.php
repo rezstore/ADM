@@ -69,9 +69,9 @@ class M_fanpage extends CI_Model
   }
   
   function get_all_twitter_posting(){
-  	$sql="SELECT twitter_messages_post.*,twitter_UID.UID 
-  		FROM twitter_messages_post LEFT JOIN twitter_UID 
-  		ON twitter_messages_post.page_id=twitter_UID.UID WHERE 1";
+  	$sql="SELECT twitter_messages_post.*,twitter_uid.UID 
+  		FROM twitter_messages_post LEFT JOIN twitter_uid 
+  		ON twitter_messages_post.page_id=twitter_uid.UID WHERE 1";
   	$q=$this->db->query($sql);
   	return $q;  	
   }
@@ -135,7 +135,7 @@ class M_fanpage extends CI_Model
   }
   
   function get_twitter_page(){
-  	$sql="SELECT `UID` as page_id, `user_name` as pagename FROM `twitter_UID` WHERE `status`=1";
+  	$sql="SELECT `UID` as page_id, `user_name` as pagename FROM `twitter_uid` WHERE `status`=1";
   	$q=$this->db->query($sql);
   	return $q;
   }

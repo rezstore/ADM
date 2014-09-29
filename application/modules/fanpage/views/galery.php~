@@ -21,7 +21,7 @@
         	<img src="<?php echo get_images_icon('user.gif');?>" width="16" height="16" alt="Latest Registered Users" /> 
         		Data Posting 
         </div>
-	<div class="portlet-content nopadding" >
+	<div class="portlet-content nopadding">
             <?php
 			$bg="";
 		$no=1;
