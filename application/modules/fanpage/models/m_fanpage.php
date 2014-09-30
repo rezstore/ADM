@@ -8,7 +8,7 @@ class M_fanpage extends CI_Model
   
   function get_app_properties($type){
    if ($type== "facebook"){
-   	$sql="SELECT * FROM fb_applications WHERE 1 LIMIT 1";
+   	$sql="SELECT * FROM fb_applications WHERE status=1 LIMIT 1";
    }elseif($type== "twitter"){
    	$sql="SELECT * FROM twitter_applications WHERE status=1 LIMIT 1";
    }else{
@@ -243,12 +243,20 @@ class M_fanpage extends CI_Model
 	return $q;
   }
   
-  ## 
-  function get_activity_chart($username){
+  # CHART # 
+  function get_tgl_chart($username){
   	$user=$this->escape($username);
+  	$sql="SELECT DATE(`date_time`) as date
+		FROM `user_activities` WHERE `user`=$user GROUP BY date";
+	$q=$this->db->query($sql);
+	return $q;
+  } 
+  function get_activity_chart($username,$date){
+  	$user=$this->escape($username);
+  	$date=$this->escape($date);
   	$sql="SELECT count(`p`.`date`)as `jumlah`,p.* FROM (SELECT `user`,DATE(`date_time`) as date,`type`,`message` 
-		FROM `user_activities` WHERE `user`=$user)p 
-		 WHERE 1 GROUP BY date";
+		FROM `user_activities` WHERE `user`=$user AND DATE(`date_time`)=$date)p 
+		 WHERE 1 GROUP BY type";
 	$q=$this->db->query($sql);
 	return $q;
   }

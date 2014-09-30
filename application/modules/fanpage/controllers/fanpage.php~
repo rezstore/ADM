@@ -436,19 +436,39 @@ class Fanpage extends CI_Controller {
 	# CHART #
 	function get_datas(){
 	 	$row=array();
-			$s=$this->m_fanpage->get_activity_chart($this->userdata);
+			$s=$this->m_fanpage->get_tgl_chart($this->userdata);
 			$n=1;
+			
 			foreach($s->result() as $r){
-			 	if ($n==1){
-				 	$coll[]=array("id"=>"","label"=>"Topping","type"=>"string","pattern"=>"");
-				 	$coll[]=array("id"=>"","label"=>$r->type,"type"=>"number","pattern"=>"");
-			 	}
-				$v1=array("v"=>$r->date);
-				$v2=array("v"=>$r->jumlah);
-			 	$row=array($v1,$v2);
-				$rs[]=array("c"=>$row);
-				$row="";
-				$n++;
+				$jml_twt=0;$jml_fb=0;$jml_g=0;
+				$a=$this->m_fanpage->get_activity_chart($this->userdata,$r->date);
+				foreach($a->result() as $row){
+					$date=$row->date;
+					$type=$row->type;
+					$jml=$row->jumlah;
+					if($type == "twitter"){
+					 $jml_twt=$jml;
+					}elseif($type == "facebook"){
+					 $jml_fb=$jml;
+					}else{
+					 $jml_g=$jml;
+					}
+
+				}
+				 	if ($n==1){
+					 	$coll[]=array("id"=>"","label"=>"Topping","type"=>"string","pattern"=>"");
+					 	$coll[]=array("id"=>"","label"=>"Facebook","type"=>"number","pattern"=>"");
+					 	$coll[]=array("id"=>"","label"=>"Twitter","type"=>"number","pattern"=>"");
+					 	$coll[]=array("id"=>"","label"=>"Google Plus","type"=>"number","pattern"=>"");
+				 	}
+					$v1=array("v"=>$date);
+					$v2=array("v"=>$jml_fb);
+					$v3=array("v"=>$jml_twt);
+					$v4=array("v"=>$jml_g);
+				 	$rows=array($v1,$v2,$v3,$v4);
+					$rs[]=array("c"=>$rows);
+					$rows="";
+					$n++;
 			 }
 	 	$b=array("cols"=>$coll,"rows"=>$rs);
 		echo json_encode($b);
