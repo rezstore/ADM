@@ -189,34 +189,6 @@ class Fanpage extends CI_Controller {
 	  	redirect(get_url($uri));
 	}
 	
-	# FUNCTION FOR UPDATE TO WALL #
-	function post_to_fb_fanpage(){
-		$q=$this->m_fanpage->get_facebook_posting();
-		foreach($q->result() as $res){
-			$ID=$res->ID_post;
-			$fbuser=$res->UID;
-			$page=$res->page_id;
-			$message=$res->messages;
-			$url=$res->url;
-			$image=get_image_post($res->image);
-			$this->send_message_to_fb($ID,$fbuser,$page,$message,$url,$image);
-		}
-	}
-	
-	function post_to_twt_fanpage(){
-		$q=$this->m_fanpage->get_twitter_posting();
-		foreach($q->result() as $res){
-			$ID=$res->ID_post;
-			$page_id=$res->page_id;
-				# SETTING APP #
-				$this->initial_twitter($page_id);
-			$message=$res->messages;
-			$url=$res->url;
-			$image=$res->image;
-			$this->send_message_to_twitter($ID,$message,$url,$image);
-		}
-	}
-	
 	# INSERT NEW FACEBOOK #
 	function insert_new_facebook(){
 		$data['title']="Insert New Facebook";
@@ -238,7 +210,7 @@ class Fanpage extends CI_Controller {
 			 }
 			 $param=array('message'=>'menambah record baru dengan tgl post='.$date,'type'=>"facebook");
 			 $this->insert_activity($param);
-			 redirect(get_url('facebook'));	
+			 exit;redirect(get_url('facebook'));	
 		 }
 		}
 		$this->load->helper('form');
@@ -258,19 +230,19 @@ class Fanpage extends CI_Controller {
 		 $url=$this->post('url');
 		 $filename='';
 		 $file=$_FILES["userfile"]["name"];
-		 if($date != "" and $file != ''){
-			 $path=get_image_post('','basedir');
-			 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',date('sgid'));
-			 $filename=$this->uploading_file($config);
+		 if($date != "" and $text != ''){
+		 	 if ($text !==""){
+				 $path=get_image_post('','basedir');
+				 $config=$this->initialing_upload_files($path,'jpg|png|gif|bmp','500','1200','750',date('sgid'));
+				 $filename=$this->uploading_file($config);
+			 }
 
 		 	 #SAVE TO DB #
-		 	 if ($text !==""){
-		 	 	$this->m_fanpage->insert_new_twitter_post($date,$pageid,$text,$url,$filename);
-			 }
+		 	 $this->m_fanpage->insert_new_twitter_post($date,$pageid,$text,$url,$filename);
 			 $param=array('message'=>'menambah record baru dengan tgl post='.$date,'type'=>"twitter");
 			 $this->insert_activity($param);
 		 }
-			 redirect(get_url('twitter'));	
+			 exit;redirect(get_url('twitter'));	
 		}
 		$this->load->helper('form');
 		$this->load_header($data);
@@ -364,6 +336,35 @@ class Fanpage extends CI_Controller {
 		}
 	}
 	
+	# FUNCTION FOR UPDATE TO WALL #
+	function post_to_fb_fanpage($id=''){
+		$this->initials();
+		$q=$this->m_fanpage->get_facebook_posting($id);
+		foreach($q->result() as $res){
+			$ID=$res->ID_post;
+			$fbuser=$res->UID;
+			$page=$res->page_id;
+			$message=$res->messages;
+			$url=$res->url;
+			$image=get_image_post($res->image);
+			$this->send_message_to_fb($ID,$fbuser,$page,$message,$url,$image);
+		}
+	}
+	
+	function post_to_twt_fanpage($id=''){
+		$q=$this->m_fanpage->get_twitter_posting($id);
+		foreach($q->result() as $res){
+			$ID=$res->ID_post;
+			$page_id=$res->page_id;
+				# SETTING APP #
+				$this->initial_twitter($page_id);
+			$message=$res->messages;
+			$url=$res->url;
+			$image=$res->image;
+			$this->send_message_to_twitter($ID,$message,$url,$image);
+		}
+	}
+	
 	#######################################################################################################
 	# FACEBOOK #
 	function send_message_to_fb($ID,$fbuser,$page,$message,$url,$image_source){
@@ -386,8 +387,11 @@ class Fanpage extends CI_Controller {
 			
 			$this->facebook->setFileUploadSupport(true);
 			$path=str_replace('http://localhost/','/home/public_html/',$image_source);
-			echo $img = realpath($path);
-			
+			$img='';
+			if ($image_source !== ""){
+				$img = realpath($path);
+			}
+			echo '@'. $this->token;
 			//posts message on page statues 
 			$msg_body = array(
 			'access_token' => $this->token,
@@ -402,7 +406,7 @@ class Fanpage extends CI_Controller {
 				$postResult = $this->facebook->api($post_url, 'post', $msg_body );
 				//$this->m_fanpage->update_facebook_posting_status($ID);
 			} catch (FacebookApiException $e) {
-				echo $e->getMessage();
+				echo "error = ".$e->getMessage();
 		  }
 		}
 	}
@@ -458,13 +462,13 @@ class Fanpage extends CI_Controller {
 				 	if ($n==1){
 					 	$coll[]=array("id"=>"","label"=>"Topping","type"=>"string","pattern"=>"");
 					 	$coll[]=array("id"=>"","label"=>"Facebook","type"=>"number","pattern"=>"");
-					 	$coll[]=array("id"=>"","label"=>"Twitter","type"=>"number","pattern"=>"");
 					 	$coll[]=array("id"=>"","label"=>"Google Plus","type"=>"number","pattern"=>"");
+					 	$coll[]=array("id"=>"","label"=>"Twitter","type"=>"number","pattern"=>"");
 				 	}
 					$v1=array("v"=>$date);
 					$v2=array("v"=>$jml_fb);
-					$v3=array("v"=>$jml_twt);
-					$v4=array("v"=>$jml_g);
+					$v3=array("v"=>$jml_g);
+					$v4=array("v"=>$jml_twt);
 				 	$rows=array($v1,$v2,$v3,$v4);
 					$rs[]=array("c"=>$rows);
 					$rows="";

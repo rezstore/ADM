@@ -63,10 +63,14 @@
 			 }
 			 
 			 $status=$r->status;
+			 $post="";
+			 if($prefix=="facebook"){$post=anchor(get_url("post_to_fb_fanpage/".$id),"pos");}
+			 	elseif($prefix=="twitter"){$post=anchor(get_url("post_to_twt_fanpage/".$id),"pos");}
 			 if($no%2 == 0){$bg="#B9B9B9;";}
 			 if ($status==1){$bg="";$url_actions="";}else{$bg="#F3B4B4;";
 			 	$url_actions=anchor(get_url('edit/'.$prefix.'/'.$id),'__','class="edit_icon"').nbs(2).
-			 			anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" onclick="delete_record(\''.$active.'\','.$id.');"');
+			 			anchor($this->uri->uri_string()."#",'__','class="delete_icon" id="delete" onclick="delete_record(\''.$active.'\','.$id.');"')
+			 			.$post.'';
 			 }
               echo "<tr style='background:$bg'>
 		        <td width='34'><label>
