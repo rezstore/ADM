@@ -46,7 +46,7 @@ class Fanpage extends CI_Controller {
 			$this->return_url = $r->return_url;  //return url (url to script)
 			$this->homeurl = $r->homeurl;  //return to home
 			$this->fbPermissions = $r->fbPermissions;  //Required facebook permissions
-			$this->token=$r->token;
+			echo $this->token=$r->token;
 			$this->caption_post="Perusahaan Pembuat Website Dynamic";
 		}
 	}
@@ -391,7 +391,7 @@ class Fanpage extends CI_Controller {
 			if ($image_source !== ""){
 				$img = realpath($path);
 			}
-			echo '@'. $this->token;
+			//echo '@'. $this->token;
 			//posts message on page statues 
 			$msg_body = array(
 			'access_token' => $this->token,
