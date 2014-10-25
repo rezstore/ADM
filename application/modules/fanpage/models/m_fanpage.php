@@ -8,7 +8,7 @@ class M_fanpage extends CI_Model
   
   function get_app_properties($type){
    if ($type== "facebook"){
-   	$sql="SELECT * FROM fb_applications WHERE 1 LIMIT 1";
+   	$sql="SELECT * FROM fb_applications WHERE status=1 LIMIT 1";
    }elseif($type== "twitter"){
    	$sql="SELECT * FROM twitter_applications WHERE status=1 LIMIT 1";
    }else{
@@ -86,18 +86,33 @@ class M_fanpage extends CI_Model
   
   # SELECT FOR POSTING TO WALL #
   
-  function get_facebook_posting(){
+  function get_facebook_posting($id=""){
+  	$id=$this->escape($id);
+  	if($id !== ""){
   	$sql="SELECT fb_messages_post.*,fb_fanpages.UID FROM fb_messages_post 
   		LEFT JOIN fb_fanpages ON fb_fanpages.page_id=fb_messages_post.page_id
   		WHERE fb_messages_post.status = 0 AND fb_messages_post.date_post <= CURDATE() LIMIT 1";
+  	}else{
+  	$sql="SELECT fb_messages_post.*,fb_fanpages.UID FROM fb_messages_post 
+  		LEFT JOIN fb_fanpages ON fb_fanpages.page_id=fb_messages_post.page_id
+  		WHERE fb_messages_post.status = 0 AND fb_messages_post.ID_post = $id LIMIT 1";
+  	}
   	$q=$this->db->query($sql);
+  	
   	return $q;
   }
   
-  function get_twitter_posting(){
-  	$sql="SELECT twitter_messages_post.*
-  		FROM twitter_messages_post 
-  		WHERE twitter_messages_post.date_post <= CURDATE() LIMIT 1";
+  function get_twitter_posting($id=''){
+  	$id=$this->escape($id);
+  	if($id == ''){
+	  	$sql="SELECT twitter_messages_post.*
+	  		FROM twitter_messages_post 
+	  		WHERE twitter_messages_post.date_post <= CURDATE() LIMIT 1";
+  	}else{
+	  	$sql="SELECT twitter_messages_post.*
+	  		FROM twitter_messages_post 
+	  		WHERE twitter_messages_post.ID_post=$id LIMIT 1";  	
+  	}
   	$q=$this->db->query($sql);
   	return $q;
   }
@@ -243,12 +258,20 @@ class M_fanpage extends CI_Model
 	return $q;
   }
   
-  ## 
-  function get_activity_chart($username){
+  # CHART # 
+  function get_tgl_chart($username){
   	$user=$this->escape($username);
+  	$sql="SELECT DATE(`date_time`) as date
+		FROM `user_activities` WHERE `user`=$user GROUP BY date";
+	$q=$this->db->query($sql);
+	return $q;
+  } 
+  function get_activity_chart($username,$date){
+  	$user=$this->escape($username);
+  	$date=$this->escape($date);
   	$sql="SELECT count(`p`.`date`)as `jumlah`,p.* FROM (SELECT `user`,DATE(`date_time`) as date,`type`,`message` 
-		FROM `user_activities` WHERE `user`=$user)p 
-		 WHERE 1 GROUP BY date";
+		FROM `user_activities` WHERE `user`=$user AND DATE(`date_time`)=$date)p 
+		 WHERE 1 GROUP BY type";
 	$q=$this->db->query($sql);
 	return $q;
   }

@@ -6,8 +6,9 @@
         <meta name="description" content="Expand, contract, animate forms with jQuery wihtout leaving the page" />
         <meta name="keywords" content="expand, form, css3, jquery, animate, width, height, adapt, unobtrusive javascript"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css');?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.css');?>" />
     </head>
-    <body>
+    <body style="background:blue;">
     <?php
      if(isset($error)){
        $user_log=$user;
@@ -19,7 +20,6 @@
        $bg="transparent";
      }
     ?>
-	<div class="wrapper">
 	  <div class="content">
 	   <div class='error' style="background:<?php echo $bg; ?>;"><?php echo $error_message; ?></div>
 		<div id="form_wrapper" class="form_wrapper">
@@ -33,6 +33,7 @@
 				<label>Password: <a href="#" rel="forgot_password" class="forgot linkform">Lupa password?</a></label>
 				<input type="password" name='pass' autocomplete="off" />
 			</div>
+<br>
 			<div class="bottom">
 				<input type="submit" value="Login"></input>
 				<div class="clear"></div>
@@ -40,6 +41,5 @@
 		  </form>
 		</div>
 	   </div>
-	</div>
     </body>
 </html>

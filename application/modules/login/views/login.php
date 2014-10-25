@@ -6,6 +6,7 @@
         <meta name="description" content="Expand, contract, animate forms with jQuery wihtout leaving the page" />
         <meta name="keywords" content="expand, form, css3, jquery, animate, width, height, adapt, unobtrusive javascript"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css');?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.css');?>" />
     </head>
     <body>
     <?php
@@ -19,7 +20,6 @@
        $bg="transparent";
      }
     ?>
-	<div class="wrapper">
 	  <div class="content">
 	   <div class='error' style="background:<?php echo $bg; ?>;"><?php echo $error_message; ?></div>
 		<div id="form_wrapper" class="form_wrapper">
@@ -41,6 +41,5 @@
 		  </form>
 		</div>
 	   </div>
-	</div>
     </body>
 </html>
