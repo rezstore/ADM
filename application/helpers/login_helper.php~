@@ -1,0 +1,9 @@
+<?php
+function get_bootstrap_css(){
+ return base_url('assets/css/bootstrap/bootstrap.css');
+}
+function get_css($filename){
+ return base_url('assets/login/css/'.$filename);
+}
+
+?>

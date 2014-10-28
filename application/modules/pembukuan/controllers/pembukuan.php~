@@ -15,11 +15,11 @@ class Pembukuan extends CI_Controller {
 	}
 	
 	function load_header($data){
-		$this->load->view('header',$data);
+		$this->load->view('template/header',$data);
 	}
 	
 	function load_footer(){
-		$this->load->view('footer');
+		$this->load->view('template/footer');
 	}
 	
 	function add_perkiraan()
@@ -269,7 +269,7 @@ class Pembukuan extends CI_Controller {
 	   $data['ctrl']=$this->model_pembukuan;
 	   $data['last']=$this->get_last_month($m,$y);
 	   $this->load->helper(array('form','date'));
-	   $this->load_header($data);;
+	   $this->load_header($data);
  	   $this->load->view('perubahan_modal',$data);
  	   $this->load_footer();
 	 }
@@ -573,6 +573,9 @@ class Pembukuan extends CI_Controller {
 		$this->cezpdf->ezStream(array('Content-Disposition'=>'laporan-Laba Rugi '.$tgl_name));
 	 }
 	 
+	 function test(){
+	 	$this->load->view('template/s.php');
+	 }
 	 
 }
 

@@ -7,13 +7,52 @@ class contact extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('url','html'));
 		$this->load->model('m_contacts');
+		$this->load->helper('contacts');
 	 }
+	function index(){
+	$this->header();
+	}
 	
-	function index()
+	function view_kota()
 	{
 	  $data['q']=$this->m_contacts->select();
-	  $this->load->view('view_contacts',$data);
+	  $this->header();
+	  $this->load->view('view_kota',$data);
+
+	  }
 	  
+	function header(){
+	$this->load->view('header');
+	
+	}
+	
+
+	function insert(){
+	$this->load->helper('form');
+	  $this->header();
+	if($_POST){
+	
+	$nama=$this->input->post('nama');
+	$profinsi=$this->input->post('profinsi');
+	$this->m_contacts->insert($nama,$profinsi);
+	}
+	$this->load->view('view_insert');
+	
+	}
+	function edit($id){
+	$this->load->helper('form');
+	if($_POST){
+	$nama=$this->input->post('nama');
+	$profinsi=$this->input->post('profinsi');
+	$this->m_contacts->update($id,$nama,$profinsi);
+	redirect('contact/view_kota');
+	}
+	else{
+	$this->load->helper('form');
+	$this->header();
+	$data['q']=$this->m_contacts->select_db($id);
+	$this->load->view('edit_view',$data);
+	}
 	
 	}
 

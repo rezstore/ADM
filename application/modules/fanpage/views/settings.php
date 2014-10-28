@@ -1,30 +1,5 @@
-<div class="grid_16">
-<!-- TABS START -->
-    <div id="tabs">
-         <div class="container">
-            <ul>
-                      <li><a href="#" class=""><span>Home</span></a></li>
-					  <li><a href="#" class="current"><span>Facebook App</span></a></li>
-           </ul>
-        </div>
-    </div>
-<!-- TABS END -->    
-</div>
-<div class="grid_16" id="content">
-    <!--  TITLE START  --> 
-    <div class="grid_9">
-    <h1 class="dashboard"><?php echo ucfirst($title); ?> Fanpage Update</h1>
-    </div>
-    <div class="clear"></div>
-    <!--THIS IS A WIDE PORTLET-->
-    <div class="portlet">
-        <div class="portlet-header fixed">
-        	<img src="<?php echo get_images_icon('user.gif');?>" width="16" height="16" alt="Latest Registered Users" /> 
-        		Data Posting <button onclick="document.location='<?php echo get_url('new_fb_application'); ?>'">New</button>
-        </div>
-	<div class="portlet-content nopadding">
-        
-          <table width="100%" cellpadding="0" cellspacing="0" id="box-table-a" summary="Employee Pay Sheet">
+        <hr>
+          <table width="100%" class="table">
            <tbody>
 			<?php
 			if ($sub=="fb_setting"){
@@ -82,18 +57,3 @@
             
             </tbody>
           </table>
-	</div>
-      </div>
-      
-<!--  END #PORTLETS -->  
-   </div>
-    <div class="clear"> </div>
-<!-- END CONTENT-->    
-  </div>
-</div>
-<!-- WRAPPER END -->
-<!-- FOOTER START -->
-<div class="container_16" id="footer">
-Website Administration by <a href="../index.htm">WebGurus</a></div>
-<!-- FOOTER END -->
-</body>

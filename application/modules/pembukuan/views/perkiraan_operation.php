@@ -20,8 +20,8 @@ if ($type==1)
   $value_nm='';$value_kd='';$value_jn='';$selected='';$action='pembukuan/tambah_akun_perkiraan';$submit='Tambahkan';
 }
 
-$nama=array('name'=>'nama_akun','placeholder'=>'Nama Perkiraan','maxlength'=>'30','value'=>$value_nm);
-$kode=array('name'=>'kode','placeholder'=>'Kode','maxlength'=>'5','value'=>$value_kd);
+$nama=array('name'=>'nama_akun','placeholder'=>'Nama Perkiraan','maxlength'=>'30','value'=>$value_nm,"style"=>'height:30px;');
+$kode=array('name'=>'kode','placeholder'=>'Kode','maxlength'=>'5','value'=>$value_kd,"style"=>'height:30px;');
 //$jenis=array('name'=>'jenis','placeholder'=>'Jenis','maxlength'=>'5',$value_jn,'disabled'=>'disabled');
 $dropdown_induk=array();
 foreach($dropdwn as $drp)
@@ -35,29 +35,30 @@ foreach($dropdwn as $drp)
 		<td class="td-head" colspan="3">Form Akun Perkiraan</td>
 	</tr>
 	<tr>
-		<td class="td-kecil">Nama Akun</td>
-		<td class="td-kecil">:</td>
-		<td class="td-kecil"><?php echo form_input($nama); ?></td>
+		<td>Nama Akun</td>
+		<td>:</td>
+		<td><?php echo form_input($nama); ?></td>
 	</tr>
 	<tr>
-		<td class="td-kecil">Kode</td>
-		<td class="td-kecil">:</td>
-		<td class="td-kecil"><?php echo form_input($kode); ?></td>
+		<td>Kode</td>
+		<td>:</td>
+		<td><?php echo form_input($kode); ?></td>
 	</tr>
 	<!--<tr>
-		<td class="td-kecil">Jenis</td>
-		<td class="td-kecil">:</td>
-		<td class="td-kecil"><?php echo form_input($jenis); ?></td>
+		<td>Jenis</td>
+		<td>:</td>
+		<td><?php echo form_input($jenis); ?></td>
 	</tr>-->
 	<tr>
-		<td class="td-kecil">Induk</td>
-		<td class="td-kecil">:</td>
-		<td class="td-kecil"><?php echo form_dropdown('induk',$dropdown_induk,$selected); ?></td>
+		<td>Induk</td>
+		<td>:</td>
+		<td><?php echo form_dropdown('induk',$dropdown_induk,$selected); ?></td>
 	</tr>
 	<tr>
-		<td class="td-kecil"></td>
-		<td class="td-kecil"></td>
-		<td class="td-kecil"><?php echo form_submit('submit',$submit).form_button('button','Batalkan'); ?></td>
+		<td></td>
+		<td></td>
+		<td></br><?php echo form_submit('submit',$submit,'class="btn btn-primary"').' '.
+				form_button('button','Batalkan','class="btn btn-warning"'); ?></td>
 	</tr>
 <?php echo form_close(); ?>
 </table>
