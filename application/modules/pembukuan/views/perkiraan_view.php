@@ -1,7 +1,8 @@
 <center><br>
 <table width="60%" id="item" style='margin-bottom:20px;width:60%' class="table">
 		        <tr>
-		             <th colspan="5"><h2>Akun Perkiraan</h2></th>
+		             <th colspan="2"><h2>Akun Perkiraan</h2> </th>
+		             <th><?php echo anchor(get_site_url('add_perkiraan'),'Perkiraan Baru','class="btn btn-primary"'); ?></th>
 		        </tr>
 		        <tr>
 		             <th>Perkiraan</th>

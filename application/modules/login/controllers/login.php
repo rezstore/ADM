@@ -9,6 +9,11 @@ class Login extends CI_Controller {
 		$this->load->model('m_login');
 	 }
 	
+	function get_user(){
+		$this->load->library('session');
+		return $this->session->userdata('user_account');
+	}
+	
 	function index(){
 	 $this->check_login();
 	}
@@ -37,9 +42,11 @@ class Login extends CI_Controller {
 			$data['error']=$err;
 			$data['user']=$user;
 		}
+		if($this->get_user() != "") redirect('administrations');
 		$this->load->helper('form');
 		$data['controller']=$this;
  		$this->load->view('login',$data);
+ 		
 	 }
 	 
 	function set_session($user){

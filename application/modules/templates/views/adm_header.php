@@ -30,13 +30,22 @@
             <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <?php echo anchor("administrations","Home");?>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <?php echo anchor("pembukuan","Pembukuan");?>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <?php echo anchor("fanpage","Fanpage");?>
+                    </li>
+                    <li>
+                        <?php echo anchor("aktivitas_harian","Aktivitas");?>
+                    </li>
+                    <li>
+                        <?php echo anchor("contact","Contact");?>
+                    </li>
+                    <li>
+                        <?php echo anchor("login/logout","Logout");?>
                     </li>
                 </ul>
             </div>

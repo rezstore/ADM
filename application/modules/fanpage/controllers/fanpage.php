@@ -76,12 +76,12 @@ class Fanpage extends CI_Controller {
 	}
 	
 	function load_header($data){
-		$this->load->view('template/adm_header',$data);
-		$this->load->view('header',$data);
+		$this->load->view('templates/adm_header',$data);
+		$this->load->view('templates/menus',$data);
 	}
 	
 	function load_footer($data){
-		$this->load->view('template/adm_footer',$data);
+		$this->load->view('templates/adm_footer',$data);
 	}
 	
 	function insert_activity($param){

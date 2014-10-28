@@ -1,28 +1,16 @@
 <?php
-function get_bootstrap_css($filename='bootstrap.css'){
- return base_url('assets/global_css/bootstrap/'.$filename);
-}
-function get_css($filename){
- return base_url('assets/pembukuan/css/'.$filename);
-}
 
-function get_jquery_css($filename=''){
- return base_url('assets/css/jquery_css/'.$filename);
-}
+include('global_helper.php');
 
 function get_js($filename,$true=false){
  if($true==false){
-  return base_url('assets/js/pembukuan/'.$filename);
+  return base_url('assets/global_js/pembukuan/'.$filename);
  }else{
-  return base_url('assets/js/'.$filename);
+  return base_url('assets/global_js/'.$filename);
  }
 }
 
-function get_js_family($filename){
- return base_url('assets/js/jquery-family/'.$filename);
-}
-
-function get_site_url($pagename){
+function get_site_url($pagename=''){
  return site_url('pembukuan/'.$pagename);
 }
 /*
