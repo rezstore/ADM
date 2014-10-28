@@ -40,7 +40,7 @@ class Pembukuan extends CI_Controller {
 	     $this->load->helper('form');
 	     $data['title'] = 'add jurnal';
  		$this->load_header($data);
-		//$data['typ']=0;
+		$data['typ']=0;
  		$this->load->view('jurnal_operation',$data);
  		$this->load_footer();
 	}

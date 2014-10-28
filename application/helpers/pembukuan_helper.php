@@ -10,6 +10,10 @@ function get_js($filename,$true=false){
  }
 }
 
+function get_css(){
+	return BASE.'/pembukuan/'.$filename);
+}
+
 function get_site_url($pagename=''){
  return site_url('pembukuan/'.$pagename);
 }

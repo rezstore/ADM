@@ -13,7 +13,7 @@ $b=$n[1];
         </tr>
         <tr style="height:100px;">
              <td colspan="4"><h2>Jurnal View</h2></td>
-             <td valign='top'><?php echo anchor(get_site_url('add_jurnal'),'Tambah Jurnal','class ="btn btn-default"'); ?></td>
+             <td valign='top'><?php echo anchor('add_jurnal','Tambah Jurnal','class ="btn btn-default"'); ?></td>
         </tr>
         <tr style='text-align:center;'>
              <td colspan=2>Tanggal</td>

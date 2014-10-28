@@ -120,7 +120,7 @@ for (var i=1;i <= 2; i++)
 </script>
 <script>
 	$(function() {
-		$( "#datepicker").datepicker({ 
+		$( "#datepicker" ).datepicker({ 
 		dateFormat: 'dd-mm-yy', autoSize: false, disabled: false ,
 		showOn: "button",
                       buttonImage: "<?php echo get_images_icon('calendar.gif');?>",

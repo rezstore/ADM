@@ -26,25 +26,4 @@ function get_images_icon($filename){
 }
 
 
-#----------------------------------------------------------------------
-function input($name,$value='',$class=''){
- return form_input($name,$value,$class.' style="height:30px;"');
-}
-
-function dropdown($name,$arr=array(),$value='',$class=''){
- return form_dropdown($name,$arr,$value,$class);
-}
-
-function textarea($name,$value='',$class=''){
- return form_textarea($name,$value,$class);
-}
-
-function upload($name,$value='',$class=''){
- return form_upload($name,$value,$class);
-}
-
-function submit($name,$value='',$class=''){
- return form_submit($name,$value,$class);
-}
-
 ?>

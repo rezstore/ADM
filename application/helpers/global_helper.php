@@ -10,9 +10,12 @@ define('ADM_AWSM_CSS','assets/global_css/font-awesome/css/');
 define('ADM_JS','assets/administration/js/');
 define('ADM_SITE','administration');
 
+define('SITE',site_url());
+define('BASE',base_url());
+
 
 function get_bootstrap_css($filename='bootstrap.css'){
-	 return base_url(BSTRAP_CSS.$filename);
+	 return BASE.BSTRAP_CSS.$filename;
 	}
 	
 function get_bootstrap_js($filename='bootstrap-min.js'){
