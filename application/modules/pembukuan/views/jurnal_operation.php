@@ -17,11 +17,11 @@ if ($type==1)
   $value_nm="'value'=>'$nm'";
   $value_kd="'value'=>'$kd'";
   $selected=$id_p;
-  $action='pembukuan/update_akun';
+  $action=get_site_url('update_akun');
   $value_nom=$dk;
   $value_ket='';
   
-}else{$value_nm='';$value_kd='';$selected='';$action='pembukuan/tambah_akun';$value_nom='';$value_ket='';}
+}else{$value_nm='';$value_kd='';$selected='';$action=get_site_url('tambah_akun');$value_nom='';$value_ket='';}
 
 $tgl=array('name'=>'tgl','id'=>'datepicker','placeholder'=>'Tanggal','maxlength'=>'30',$value_nm);
 $a_p=array('name'=>'a_p','id'=>'ap','placeholder'=>'Akun','maxlength'=>'5',$value_kd);
@@ -39,7 +39,7 @@ $f='id="myform"';
 	<tr>
 		<td>Tanggal</td>
 		<td>:</td>
-		<td><?php echo form_input($tgl); ?></td>
+		<td><?php echo input('tgl','','id="datepicker"'); ?></td>
 	</tr>
 	<tr>
 		<td>Keterangan</td>
@@ -70,7 +70,9 @@ $f='id="myform"';
 <script src="<?php echo get_js_family('jquery-1.5.2.min.js'); ?>"></script>
 <script src="<?php echo get_js_family('jquery-ui.js'); ?>"></script>
 <script src="<?php echo get_js('token_input/tokeninput.js',true); ?>"></script>
-
+<link rel="stylesheet" href="<?php echo get_css('token-input-facebook.css'); ?>">
+<link rel="stylesheet" href="<?php echo get_jquery_css('jquery-ui.css'); ?>">
+<link rel="stylesheet" href="<?php echo get_jquery_css('style.css'); ?>">
 <script type="text/javascript">
 for (var i=1;i <= 2; i++)
 { 
@@ -82,8 +84,8 @@ for (var i=1;i <= 2; i++)
 	    var td = $('<td></td>');
 	    var td_d = $('<td></td>');
 	    var td_k = $('<td></td>');
-	    var debet = $("<input type='text' name='debet[]' placeholder='Rp. xxx'>");
-	    var kredit = $("<input type='text' name='kredit[]' placeholder='Rp. xxx'>");
+	    var debet = $("<input type='text' name='debet[]' placeholder='Rp. xxx' style='height:30px;'>");//<input type='text' name='debet[]' placeholder='Rp. xxx'>
+	    var kredit = $("<input type='text' name='kredit[]' placeholder='Rp. xxx' style='height:30px;'>");
 	    var fb = $("<input class='token_fb' name='akun[]'>");
 	    
 	        $('#item').append(tr);
@@ -120,9 +122,9 @@ for (var i=1;i <= 2; i++)
 <script>
 	$(function() {
 		$( "#datepicker" ).datepicker({ 
-		dateFormat: 'dd-mm-yy', autoSize: true, disabled: true ,
+		dateFormat: 'dd-mm-yy', autoSize: false, disabled: false ,
 		showOn: "button",
-                      buttonImage: "<?php echo base_url();?>/assets/images/calendar.gif",
+                      buttonImage: "<?php echo get_images_icon('calendar.gif');?>",
                       buttonImageOnly: true
 		});
 	});

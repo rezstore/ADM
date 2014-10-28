@@ -5,7 +5,7 @@ class Login extends CI_Controller {
 	function __construct()
 	 {
 		parent::__construct();
-		$this->load->helper(array('url','html'));
+		$this->load->helper(array('url','html','login'));
 		$this->load->model('m_login');
 	 }
 	

@@ -46,7 +46,7 @@ class Fanpage extends CI_Controller {
 			$this->return_url = $r->return_url;  //return url (url to script)
 			$this->homeurl = $r->homeurl;  //return to home
 			$this->fbPermissions = $r->fbPermissions;  //Required facebook permissions
-			echo $this->token=$r->token;
+			$this->token=$r->token;
 			$this->caption_post="Perusahaan Pembuat Website Dynamic";
 		}
 	}
@@ -76,7 +76,12 @@ class Fanpage extends CI_Controller {
 	}
 	
 	function load_header($data){
+		$this->load->view('template/adm_header',$data);
 		$this->load->view('header',$data);
+	}
+	
+	function load_footer($data){
+		$this->load->view('template/adm_footer',$data);
 	}
 	
 	function insert_activity($param){
@@ -92,6 +97,7 @@ class Fanpage extends CI_Controller {
 		$data['posting']=$this->m_fanpage->get_all_facebook_posting();
 		$this->load_header($data);
 		$this->load->view('view_posting',$data);
+		$this->load_footer($data);
 	}
 	
 	function twitter(){
@@ -100,6 +106,7 @@ class Fanpage extends CI_Controller {
 		$data['posting']=$this->m_fanpage->get_all_twitter_posting();
 		$this->load_header($data);
 		$this->load->view('view_posting',$data);
+		$this->load_footer($data);
 	}
 	
 	function googlep(){
@@ -108,6 +115,7 @@ class Fanpage extends CI_Controller {
 		$data['posting']=$this->m_fanpage->get_all_googleP_posting();
 		$this->load_header($data);
 		$this->load->view('view_posting',$data);
+		$this->load_footer($data);
 	}
 	
 	function report(){
@@ -116,6 +124,7 @@ class Fanpage extends CI_Controller {
 		$this->load_header($data);
 		$data['c']=$this;
 		$this->load->view('report',$data);
+		$this->load_footer($data);
 	}
 	
 	# EDITING DATAS #
@@ -170,6 +179,7 @@ class Fanpage extends CI_Controller {
 	 $data['edit_post']=$edit_post;
 	 $this->load_header($data);
 	 $this->load->view('edit_post',$data);
+	 $this->load_footer($data);
 	}
 	
 	function delete($type,$id){
@@ -216,6 +226,7 @@ class Fanpage extends CI_Controller {
 		$this->load->helper('form');
 		$this->load_header($data);
 		$this->load->view('new_post',$data);
+		$this->load_footer($data);
 	}
 	
 	function insert_new_twitter(){
@@ -247,6 +258,7 @@ class Fanpage extends CI_Controller {
 		$this->load->helper('form');
 		$this->load_header($data);
 		$this->load->view('new_post',$data);
+		$this->load_footer($data);
 	}
 	
 	# CONFIG TO UPLOAD IMAGE #
@@ -285,6 +297,7 @@ class Fanpage extends CI_Controller {
 		$data['sub']="fb_setting";
 		$this->load_header($data);
 		$this->load->view('settings',$data);
+		$this->load_footer($data);
 	}
 	
 	# LOG #
@@ -295,6 +308,7 @@ class Fanpage extends CI_Controller {
 		$data['datas']=$this->m_fanpage->select_log($user);
 		$this->load_header($data);
 		$this->load->view('log_data_activity',$data);
+		$this->load_footer($data);
 	}
 	
 	function gallery(){
@@ -303,7 +317,8 @@ class Fanpage extends CI_Controller {
 		$data['active']="m";
 		$data['gal']=$this->m_fanpage->select_image_from_postings();
 		$this->load_header($data);
-		$this->load->view('galery',$data);
+		$this->load->view('gallery',$data);
+		$this->load_footer($data);
 	}
 	
 	# NEW APPLICATION #
@@ -326,6 +341,7 @@ class Fanpage extends CI_Controller {
 		}
 		$this->load_header($data);
 		$this->load->view('settings',$data);
+		$this->load_footer($data);
 	}
 	
 	function set_defult_app(){

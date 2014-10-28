@@ -1,17 +1,21 @@
 <?php
-function get_bootstrap_css(){
- return base_url('assets/css/bootstrap.css');
+function get_bootstrap_css($filename='bootstrap.css'){
+ return base_url('assets/global_css/bootstrap/'.$filename);
 }
 function get_css($filename){
- return base_url('assets/css/pembukuan/'.$filename);
+ return base_url('assets/pembukuan/css/'.$filename);
 }
 
-function get_jquery_css($filename){
+function get_jquery_css($filename=''){
  return base_url('assets/css/jquery_css/'.$filename);
 }
 
-function get_js($filename){
- return base_url('assets/js/pembukuan/'.$filename);
+function get_js($filename,$true=false){
+ if($true==false){
+  return base_url('assets/js/pembukuan/'.$filename);
+ }else{
+  return base_url('assets/js/'.$filename);
+ }
 }
 
 function get_js_family($filename){
@@ -27,16 +31,16 @@ function get_image_post($filename='',$type=''){
   return PUBPATH.'assets/uploads/pembukuan/'.$filename;
  }
  return base_url('assets/uploads/pembukuan/'.$filename);
-}
+}*/
 
 function get_images_icon($filename){
- return base_url('assets/css/pembukuan/images/icons/'.$filename);
+ return base_url('assets/pembukuan/images/icons/'.$filename);
 }
 
 
 #----------------------------------------------------------------------
 function input($name,$value='',$class=''){
- return form_input($name,$value,$class);
+ return form_input($name,$value,$class.' style="height:30px;"');
 }
 
 function dropdown($name,$arr=array(),$value='',$class=''){
@@ -54,5 +58,5 @@ function upload($name,$value='',$class=''){
 function submit($name,$value='',$class=''){
  return form_submit($name,$value,$class);
 }
-*/
+
 ?>

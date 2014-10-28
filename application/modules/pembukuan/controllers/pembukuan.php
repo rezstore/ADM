@@ -15,11 +15,11 @@ class Pembukuan extends CI_Controller {
 	}
 	
 	function load_header($data){
-		$this->load->view('header',$data);
+		$this->load->view('template/header',$data);
 	}
 	
 	function load_footer(){
-		$this->load->view('footer');
+		$this->load->view('template/footer');
 	}
 	
 	function add_perkiraan()
