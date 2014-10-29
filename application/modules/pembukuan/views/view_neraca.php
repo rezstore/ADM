@@ -2,15 +2,15 @@
 <?php      $nama_bulan=array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');?>
    <table width="60%" id="item" style='margin-bottom:20px;' class="table">
 		<tr>
-		     <td colspan="7" style="height:20px;text-align:center;"><?php 
-		     	echo '<form method="get">'.'Bulan: '.
-		     		combo_bulan($b+1).' tahun: '.
-		     		combo_tahun('2','2013').' '.
-		     		form_submit('submit','filter','class="btn btn-primary"').
-		     	form_close(); ?></td>
+		     <td colspan="7"><h2>Neraca Saldo : <?php echo /*date('t').' '.*/$nama_bulan[$b].' '.$y; ?></h2></td>
 		</tr>
 		<tr>
-		     <td class="td-head" colspan="7">Neraca Saldo : <?php echo /*date('t').' '.*/$nama_bulan[$b].' '.$y; ?></td>
+		     <td colspan="7" style="height:20px;text-align:center;"><?php 
+		     	echo '<form method="get">'.'<label style="float:left;">Bulan: </label>'.
+		     		combo_bulan($b+1).'<label style="float:left;">Tahun: </label>'.
+		     		combo_tahun('2','2013').'<label style="float:left;">&nbsp;</label>'.
+		     		form_submit('submit','filter','class="btn btn-default" style="float:left;"').
+		     	form_close(); ?></td>
 		</tr>
 	<?php
 	       //$now=date('Y-m');
@@ -142,7 +142,7 @@
 
 	echo "<tr>";
 	echo "<td colspan=5></td>";
-	echo "<td><a href=".site_url('pembukuan/pembukuan/convert_neraca/'.$now)." class='btn btn-primary'>Download PDF</a></td>";
+	echo "<td>".anchor(site_url('convert_neraca/'.$now),'Download PDF','class="btn btn-warning"')."</td>";
 	echo "</tr>";
 	     ?>
    </table>

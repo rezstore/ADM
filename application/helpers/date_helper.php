@@ -32,7 +32,7 @@
 		} else {
 			$sekarang = $default;
 		}
-		$cmb =  '<select name="cmb_tahun">';
+		$cmb =  '<select name="cmb_tahun" class="btn btn-default" style="width:200px;float:left;">';
 		for ($i = $n1; $i <= $n2; $i ++){
 			$s = '';
 			if ($sekarang == $i){
@@ -51,7 +51,7 @@
 		} else {
 			$sekarang = $default;
 		}
-		$cmb =  '<select name="cmb_bulan">';
+		$cmb =  '<select name="cmb_bulan" class="btn btn-default" style="width:200px;float:left;">';
 		for ($i = 0; $i <= 11; $i ++){
 			$x = $i + 1;
 			if ($x <= 9){$x =$x;}

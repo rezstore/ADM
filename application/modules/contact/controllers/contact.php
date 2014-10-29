@@ -17,7 +17,7 @@ class contact extends CI_Controller {
 	{
 	  $data['q']=$this->m_contacts->select();
 	  $this->header();
-	  $this->load->view('view_kota',$data);
+	  $this->load->view('kota_view',$data);
 
 	  }
 	  
@@ -36,7 +36,7 @@ class contact extends CI_Controller {
 	$profinsi=$this->input->post('profinsi');
 	$this->m_contacts->insert($nama,$profinsi);
 	}
-	$this->load->view('view_insert');
+	$this->load->view('input_view');
 	
 	}
 	function edit($id){
@@ -55,7 +55,14 @@ class contact extends CI_Controller {
 	}
 	
 	}
+function delete($id=""){
+ if($id !=""){
+	
+	$this->m_contacts->delete($id);
+    redirect('contact/view_kota');
+	}	
 
+	}
 	
 }
 //end of file

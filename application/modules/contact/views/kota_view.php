@@ -9,6 +9,7 @@ $id=$r->ID_kota;
 			 <td>".$r->nama_kota ."</td> 
 			 <td>".$r->profinsi ."</td>
 			 <td>".anchor(get_site_url('edit/'.$id),'edit')."</td>
+			 <td>".anchor(get_site_url('delete/'.$id),'delete')."</td>
 		</tr>";
 }
 	echo"</table>";

@@ -1,3 +1,4 @@
+
 <?php
 $sptr=" | ";
 if (isset($type)){

@@ -4,14 +4,14 @@ include('global_helper.php');
 
 function get_js($filename,$true=false){
  if($true==false){
-  return base_url('assets/global_js/pembukuan/'.$filename);
+  return BASE.'/assets/global_js/pembukuan/'.$filename;
  }else{
-  return base_url('assets/global_js/'.$filename);
+  return BASE.'/assets/global_js/'.$filename;
  }
 }
 
 function get_css(){
-	return BASE.'/pembukuan/'.$filename);
+	return BASE.'/pembukuan/'.$filename;
 }
 
 function get_site_url($pagename=''){
@@ -26,7 +26,7 @@ function get_image_post($filename='',$type=''){
 }*/
 
 function get_images_icon($filename){
- return base_url('assets/pembukuan/images/icons/'.$filename);
+ return BASE.'/assets/pembukuan/images/icons/'.$filename;
 }
 
 

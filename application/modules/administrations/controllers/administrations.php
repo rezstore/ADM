@@ -17,11 +17,11 @@ function index(){
 }
 
 function load_header(){
- $this->load->view('template/adm_header.php');
+ $this->load->view('templates/adm_header.php');
 }
 
 function load_footer(){
- $this->load->view('template/adm_footer.php');
+ $this->load->view('templates/adm_footer.php');
 }
 
 function home(){

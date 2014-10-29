@@ -1,13 +1,19 @@
 <?php
        $nama_bulan=array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
        ?>
-<center><br>
-   <table width="60%" id="item" style='margin-bottom:20px;' class="table">
+<br>
+   <table width="60%" style='margin-bottom:20px;' class="table">
         <tr>
-             <td colspan="7"><center><?php echo '<form method="get">'.'Bulan: '.combo_bulan($b+1).' tahun: '.combo_tahun('2','2013').form_submit('submit','filter').form_close(); ?></center></td>
+             <td colspan="6"><h2>Laporan Laba Rugi <?php echo $nama_bulan[$b].' '.$y; ?></h2></td>
         </tr>
         <tr>
-             <td class="td-head" colspan="6">Laporan Laba Rugi <?php echo $nama_bulan[$b].' '.$y; ?></td>
+             <td colspan="7" style="text-align:center;"><?php echo '<form method="get">'.
+				'<label style="float:left;"> Bulan: </label>'.
+				combo_bulan($b+1).
+				'<label style="float:left;"> Tahun: </label>'.
+				combo_tahun('2','2013')."<label style='float:left;'>&nbsp;</label>".
+				form_submit('submit','filter','class="btn btn-default" style="float:left;"').form_close(); ?>
+				</td>
         </tr>
         <?php
 		$ex1=explode('-',$last);
@@ -91,7 +97,7 @@
 	?>
 	<tr>
              <td class="td_kecil"><?php echo ""; ?></td>
-             <td class="td_kecil" rowspan=3><?php echo "<b>___________________________________________________________</b>"; ?></td>
+             <td class="td_kecil" rowspan=3><?php echo "<b>_________________________________________</b>"; ?></td>
              <td style='text-align:right;'><?php echo number_format($totald2,2,',','.'); ?></td>
              <td style='text-align:right;'><?php echo number_format($totalk2,2,',','.'); ?></td>
              <td style='text-align:right;'><?php echo number_format($totald1,2,',','.'); ?></td>
@@ -101,16 +107,16 @@
         <tr>
              <td class="td_kecil"><?php echo ""; ?></td>
              <td style='text-align:right;'><?php $sisa2=$totalk2-$totald2; echo number_format($sisa2,2,',','.'); ?></td>
-             <td class="td_kecil" style='text-align:right;'><b><?php echo "____(-)____"; ?><b></td>
+             <td class="td_kecil" style='text-align:right;'><b><?php echo "______ -"; ?><b></td>
              <td style='text-align:right;'><?php $sisa1=$totalk1-$totald1; echo number_format($sisa1,2,',','.'); ?></td>
-             <td class="td_kecil" style='text-align:right;'><b><?php echo " ____(-)____"; ?><b></td>
+             <td class="td_kecil" style='text-align:right;'><b><?php echo "______ -"; ?><b></td>
              
         </tr>
         <tr>
              <td class="td_kecil"><?php echo ""; ?></td>
-             <td style='text-align:right;'><?php echo "<b>___(+)____ <br>";$hasil2=$sisa2 + $totald2; echo number_format($hasil2,2,',','.').'</b>'; ?></td>
+             <td style='text-align:right;'><?php echo "<b>______ + <br>";$hasil2=$sisa2 + $totald2; echo number_format($hasil2,2,',','.').'</b>'; ?></td>
              <td style='text-align:right;'><?php echo '<br><b>'.number_format($totalk2,2,',','.'); ?></b></td>
-             <td style='text-align:right;'><?php echo "<b> ____(+)______ <br>";$hasil1=$sisa1 + $totald1; echo number_format($hasil1,2,',','.').'</b>'; ?></td>
+             <td style='text-align:right;'><?php echo "<b>______ + <br>";$hasil1=$sisa1 + $totald1; echo number_format($hasil1,2,',','.').'</b>'; ?></td>
              <td style='text-align:right;'><?php echo '<br><b>'.number_format($totalk1,2,',','.'); ?></b></td>
         </tr>
         <tr>
@@ -119,7 +125,7 @@
              <td></td>
              <td></td>
              <td></td>
-             <td><a href="<?php echo site_url('pembukuan/get_pdf_lr/'.$now.'/'.$last); ?>"><button>Preview PDF</button></a></td>
+             <td><?php echo anchor(get_site_url('get_pdf_lr/'.$now.'/'.$last),'Preview PDF','class="btn btn-primary"'); ?></td>
         </tr>
    </table>
 </center>

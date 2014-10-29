@@ -2,10 +2,13 @@
 <?php      $nama_bulan=array('Januari','Ferbuari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');?>
    <table width="60%" id="item" style='margin-bottom:20px;' class="table">
         <tr>
-             <td colspan="7"><center><?php echo '<form method="get">'.'Bulan: '.combo_bulan($b+1).' tahun: '.combo_tahun('2','2013').form_submit('submit','filter').form_close(); ?></center></td>
+             <td colspan="7"><center><?php echo '<form method="get">'.
+				'<label style="float:left;">Bulan: </label>'.
+				combo_bulan($b+1).'<label style="float:left;"> Tahun: </label>'.
+				combo_tahun('2','2013').'<label style="float:left;">&nbsp;</label>'.form_submit('submit','filter','class="btn btn-default" style="float:left;"').form_close(); ?></center></td>
         </tr>
         <tr>
-             <td class="td-head" colspan="7">Laporan Perubahan Modal : <?php//echo date('t').' '.$nama_bulan[$b].' '.$y; ?></td>
+             <td colspan="7">Laporan Perubahan Modal : <?php//echo date('t').' '.$nama_bulan[$b].' '.$y; ?></td>
         </tr>
         <?php
 	       $ex=explode('-',$now);
@@ -13,13 +16,13 @@
 	       $bln=$nama_bulan[$exres-1];
         ?>
         <tr rowspan=2>
-             <td class="td-kecil" rowspan=2><b>ID</b></td>
-             <td class="td-kecil" rowspan=2><b>Nama Perkiraan</b></td>
-             <td class="td-kecil" colspan=2><center><b><?php echo $bln; ?></b></center></td>
+             <td rowspan=2><b>ID</b></td>
+             <td rowspan=2><b>Nama Perkiraan</b></td>
+             <td colspan=2><center><b><?php echo $bln; ?></b></center></td>
         </tr>
         <tr>
-             <td class="td-kecil"><b>kiri</b></td>
-             <td class="td-kecil"><b>kanan</b></td>
+             <td><b>kiri</b></td>
+             <td><b>kanan</b></td>
         </tr>
 <?php
   $modal_k = 0;$modal_d = 0;
@@ -69,7 +72,7 @@
 	     echo "<td class='td-kecil'></td>";
 	     
 	     echo "<td class='td-kecil'></td>";
-	     echo "<td class='td-kecil'><a href=".site_url('pembukuan/convert_perubahan_modal/'.$now)."><button>Download PDF</button></a></td>";
+	     echo "<td class='td-kecil'>".anchor(get_site_url('convert_perubahan_modal/'.$now),'Download PDF','class="btn btn-warning"') . "</td>";
     echo "</tr>";
 ?>
 

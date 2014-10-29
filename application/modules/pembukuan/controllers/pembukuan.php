@@ -1,12 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Pembukuan extends CI_Controller {
+var $user;
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper(array('html','url','pembukuan','date'));
 		$this->load->model('model_pembukuan');
+		$this->user=$this->get_username();
+	}
+	
+	function get_username(){
+		$this->load->library("session");
+		$user=$this->session->userdata('user_account');
+		if($user=="")redirect ('login');
+		return $user;
 	}
 	
 	function index()

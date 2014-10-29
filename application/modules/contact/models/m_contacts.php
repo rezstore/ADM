@@ -32,7 +32,15 @@ $qwr=$this->db->query($sql);
 return $qwr;
 
 }
+function delete($id){
+$id=$this->db->escape($id);
 
+
+ $sql="DELETE FROM `daftar_kota` WHERE `ID_kota` = $id";
+ $qwr=$this->db->query($sql);
+ return $qwr;
+
+}
 
 }
 

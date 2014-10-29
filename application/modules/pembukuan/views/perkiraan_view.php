@@ -2,7 +2,7 @@
 <table width="60%" id="item" style='margin-bottom:20px;width:60%' class="table">
 		        <tr>
 		             <th colspan="2"><h2>Akun Perkiraan</h2> </th>
-		             <th><?php echo anchor(get_site_url('add_perkiraan'),'Perkiraan Baru','class="btn btn-primary"'); ?></th>
+		             <th><?php echo anchor(get_site_url('add_perkiraan'),'Perkiraan Baru','class="btn btn-default"'); ?></th>
 		        </tr>
 		        <tr>
 		             <th>Perkiraan</th>
@@ -15,9 +15,7 @@
 		             <td></td>
 		             <td></td>
 		             <td>
-		             	<a href="<?php echo get_site_url('convert_akun_perkiraan'); ?>" class="btn btn-primary">
-		             		Download PDF
-		             	</a>
+		             	<?php echo anchor(get_site_url('convert_akun_perkiraan'),'Download PDF','class="btn btn-warning"'); ?>
 		             </td>
 		        </tr>
 		   </table>
