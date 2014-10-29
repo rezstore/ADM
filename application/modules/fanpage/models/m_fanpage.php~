@@ -61,32 +61,32 @@ class M_fanpage extends CI_Model
   }
   # GALLERY #
   function select_image_from_postings(){
-	$sql="SELECT image FROM ".T_FB_POST." UNION SELECT image FROM ".T_TWT_POST."";
+	$sql="SELECT image FROM ".T_FB_POST." UNION SELECT image FROM twitter_messages_post";
 	$q=$this->db->query($sql);
 	return $q;
   }
   # GET ALL FANPAGE DATAS #
   
   function get_all_facebook_posting(){
-  	$sql="SELECT  ".T_FB_POST." .*,".T_FB_FANPAGE.".pagename 
+  	$sql="SELECT fb_messages_post.*,fb_fanpages.pagename 
   		FROM ".T_FB_POST." LEFT JOIN ".T_FB_FANPAGE." 
-  		ON  ".T_FB_POST." .page_id=".T_FB_FANPAGE.".page_id WHERE 1";
+  		ON fb_messages_post.page_id=fb_fanpages.page_id WHERE 1";
   	$q=$this->db->query($sql);
   	return $q;  	
   }
   
   function get_all_twitter_posting(){
-  	$sql="SELECT ".T_TWT_POST.".*,".T_TWT_UID.".UID 
+  	$sql="SELECT twitter_messages_post.*,twitter_uid.UID 
   		FROM ".T_TWT_POST." LEFT JOIN ".T_TWT_UID." 
-  		ON ".T_TWT_POST.".page_id=".T_TWT_UID.".UID WHERE 1";
+  		ON twitter_messages_post.page_id=twitter_uid.UID WHERE 1";
   	$q=$this->db->query($sql);
   	return $q;  	
   }
   
   function get_all_googleP_posting(){
-  	$sql="SELECT ".T_FB_POST.".*,".T_FB_FANPAGE.".pagename 
+  	$sql="SELECT fb_messages_post.*,fb_fanpages.pagename 
   		FROM ".T_FB_POST." LEFT JOIN ".T_FB_FANPAGE." 
-  		ON ".T_FB_POST.".page_id=".T_FB_FANPAGE.".page_id WHERE 1";
+  		ON fb_messages_post.page_id=fb_fanpages.page_id WHERE 1";
   	$q=$this->db->query($sql);
   	return $q;  	
   }
@@ -96,13 +96,13 @@ class M_fanpage extends CI_Model
   function get_facebook_posting($id=""){
   	$id=$this->escape($id);
   	if($id !== ""){
-  	$sql="SELECT ".T_FB_POST.".*,".T_FB_FANPAGE.".UID FROM ".T_FB_POST." 
-  		LEFT JOIN ".T_FB_FANPAGE." ON ".T_FB_FANPAGE.".page_id=".T_FB_POST.".page_id
-  		WHERE ".T_FB_POST.".status = 0 AND ".T_FB_POST.".date_post <= CURDATE() LIMIT 1";
+  	$sql="SELECT fb_messages_post.*,fb_fanpages.UID FROM ".T_FB_POST." 
+  		LEFT JOIN ".T_FB_FANPAGE." ON fb_fanpages.page_id=fb_messages_post.page_id
+  		WHERE fb_messages_post.status = 0 AND fb_messages_post.date_post <= CURDATE() LIMIT 1";
   	}else{
-  	$sql="SELECT ".T_FB_POST.".*,".T_FB_FANPAGE.".UID FROM ".T_FB_POST." 
-  		LEFT JOIN ".T_FB_FANPAGE." ON ".T_FB_FANPAGE.".page_id=".T_FB_POST.".page_id
-  		WHERE ".T_FB_POST.".status = 0 AND ".T_FB_POST.".ID_post = $id LIMIT 1";
+  	$sql="SELECT fb_messages_post.*,fb_fanpages.UID FROM ".T_FB_POST." 
+  		LEFT JOIN ".T_FB_FANPAGE." ON fb_fanpages.page_id=fb_messages_post.page_id
+  		WHERE fb_messages_post.status = 0 AND fb_messages_post.ID_post = $id LIMIT 1";
   	}
   	$q=$this->db->query($sql);
   	
@@ -112,13 +112,13 @@ class M_fanpage extends CI_Model
   function get_twitter_posting($id=''){
   	$id=$this->escape($id);
   	if($id == ''){
-	  	$sql="SELECT ".T_TWT_POST.".*
+	  	$sql="SELECT twitter_messages_post.*
 	  		FROM ".T_TWT_POST." 
-	  		WHERE ".T_TWT_POST.".date_post <= CURDATE() LIMIT 1";
+	  		WHERE twitter_messages_post.date_post <= CURDATE() LIMIT 1";
   	}else{
-	  	$sql="SELECT ".T_TWT_POST.".*
+	  	$sql="SELECT twitter_messages_post.*
 	  		FROM ".T_TWT_POST." 
-	  		WHERE ".T_TWT_POST.".ID_post=$id LIMIT 1";  	
+	  		WHERE twitter_messages_post.ID_post=$id LIMIT 1";  	
   	}
   	$q=$this->db->query($sql);
   	return $q;
@@ -157,7 +157,7 @@ class M_fanpage extends CI_Model
   }
   
   function get_twitter_page(){
-  	$sql="SELECT `UID` as page_id, `user_name` as pagename FROM `".T_TWT_UID."` WHERE `status`=1";
+  	$sql="SELECT `UID` as page_id, `user_name` as pagename FROM `twitter_uid` WHERE `status`=1";
   	$q=$this->db->query($sql);
   	return $q;
   }
