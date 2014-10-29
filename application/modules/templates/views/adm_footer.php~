@@ -1,7 +1,7 @@
 	<footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p><?php echo get_site_name(); ?></p>
+                    <p>Copyright © Your Website 2014</p>
                 </div>
             </div>
             <!-- /.row -->

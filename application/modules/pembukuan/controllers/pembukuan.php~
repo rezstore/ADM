@@ -1,12 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Pembukuan extends CI_Controller {
+var $user;
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper(array('html','url','pembukuan','date'));
+		$this->load->helper(array('html','url','pembukuan'));//	,'date'
 		$this->load->model('model_pembukuan');
+		$this->user=$this->get_username();
+	}
+	
+	function get_username(){
+		$this->load->library("session");
+		$user=$this->session->userdata('user_account');
+		if($user=="")redirect ('login');
+		return $user;
 	}
 	
 	function index()
@@ -40,7 +49,7 @@ class Pembukuan extends CI_Controller {
 	     $this->load->helper('form');
 	     $data['title'] = 'add jurnal';
  		$this->load_header($data);
-		$data['typ']=0;
+		//$data['typ']=0;
  		$this->load->view('jurnal_operation',$data);
  		$this->load_footer();
 	}
@@ -166,6 +175,8 @@ class Pembukuan extends CI_Controller {
 	     if($_GET){
                    $m=$this->input->get('cmb_bulan');
                    $y=$this->input->get('cmb_tahun');
+                   if($m < 1 or $m > 13 or !is_numeric($m))$m=1;
+                   if($y < $dy-10 or $y > $dy or !is_numeric($y))$y=$dy;
                    if (strlen($m) == 1){$m ='0'.$m;}
                         if(strlen($m) <> 2 or strlen($y) <> 4)
                         {
@@ -179,7 +190,7 @@ class Pembukuan extends CI_Controller {
 	           $data['now']=date('Y-m');
                   }
                    $data['b']=$m-1;$data['y']=$y;
-	     $this->load->helper(array('form','date'));
+	     $this->load->helper(array('form'));
 	     $data['qry']=$this->model_pembukuan->select_perkiraan_0();
 	     $data['last']=$this->get_last_month($m,$y);
 	     $data['title'] = 'neraca';
@@ -226,7 +237,7 @@ class Pembukuan extends CI_Controller {
 	 {
 	   $this->set_timezone();
 	   $dy=date('Y');
-	   $this->load->helper(array('form','date'));
+	   $this->load->helper(array('form'));
           if($_GET){
            $m=$this->input->get('cmb_bulan');
            $y=$this->input->get('cmb_tahun');

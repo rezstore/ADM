@@ -6,7 +6,7 @@ var $user;
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper(array('html','url','pembukuan','date'));
+		$this->load->helper(array('html','url','pembukuan'));//	,'date'
 		$this->load->model('model_pembukuan');
 		$this->user=$this->get_username();
 	}
@@ -175,6 +175,8 @@ var $user;
 	     if($_GET){
                    $m=$this->input->get('cmb_bulan');
                    $y=$this->input->get('cmb_tahun');
+                   if($m < 1 or $m > 13 or !is_numeric($m))$m=1;
+                   if($y < $dy-10 or $y > $dy or !is_numeric($y))$y=$dy;
                    if (strlen($m) == 1){$m ='0'.$m;}
                         if(strlen($m) <> 2 or strlen($y) <> 4)
                         {
@@ -188,7 +190,7 @@ var $user;
 	           $data['now']=date('Y-m');
                   }
                    $data['b']=$m-1;$data['y']=$y;
-	     $this->load->helper(array('form','date'));
+	     $this->load->helper(array('form'));
 	     $data['qry']=$this->model_pembukuan->select_perkiraan_0();
 	     $data['last']=$this->get_last_month($m,$y);
 	     $data['title'] = 'neraca';
@@ -235,7 +237,7 @@ var $user;
 	 {
 	   $this->set_timezone();
 	   $dy=date('Y');
-	   $this->load->helper(array('form','date'));
+	   $this->load->helper(array('form'));
           if($_GET){
            $m=$this->input->get('cmb_bulan');
            $y=$this->input->get('cmb_tahun');
@@ -279,7 +281,7 @@ var $user;
 	   $data['b']=$m-1;	$data['y']=$y;
 	   $data['ctrl']=$this->model_pembukuan;
 	   $data['last']=$this->get_last_month($m,$y);
-	   $this->load->helper(array('form','date'));
+	   $this->load->helper(array('form'));
 	   $this->load_header($data);
  	   $this->load->view('perubahan_modal',$data);
  	   $this->load_footer();

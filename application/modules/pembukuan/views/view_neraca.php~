@@ -8,7 +8,7 @@
 		     <td colspan="7" style="height:20px;text-align:center;"><?php 
 		     	echo '<form method="get">'.'<label style="float:left;">Bulan: </label>'.
 		     		combo_bulan($b+1).'<label style="float:left;">Tahun: </label>'.
-		     		combo_tahun('2','2013',$y).'<label style="float:left;">&nbsp;</label>'.
+		     		combo_tahun('2','2013').'<label style="float:left;">&nbsp;</label>'.
 		     		form_submit('submit','filter','class="btn btn-default" style="float:left;"').
 		     	form_close(); ?></td>
 		</tr>
