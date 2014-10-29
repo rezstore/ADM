@@ -6,7 +6,7 @@ class m_aktivitas extends CI_model {
 function view_activity($user=''){
 	$user=$this->escape($user);
 	$type=$this->escape(TYPE);
-	$sql ="SELECT * from ".T_ACT." WHERE user = $user AND type = $type ORDER BY date_time ASC";
+	$sql ="SELECT * from ".T_ACT." WHERE user = $user AND type = $type";
 	$qwr=$this->db->query($sql);
 	return $qwr;
 }

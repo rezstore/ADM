@@ -2,7 +2,7 @@
 include("global_helper.php");
 
 function get_site_url($pagename){
-return SITE.'/aktivitas_harian/'.$pagename;
+return site_url('aktivitas_harian/'.$pagename);
 }
 
 

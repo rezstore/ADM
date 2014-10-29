@@ -19,7 +19,6 @@ if (isset($type)){
 	        	 anchor(get_site_url('twitter'),'Twitter').$sptr.
 	        	 anchor(get_site_url('googleP'),'Google<sup>+</sup>').$sptr.
 	        	 anchor(get_site_url('log'),'Log Activity').$sptr.
-	        	 anchor(get_site_url('settings'),'Settings').$sptr.
 	        	 anchor(get_site_url('report'),'Report');
 	}elseif($type == ""){
 		

@@ -42,7 +42,7 @@ function new_activity(){
 		if($date != "" AND $text !=""){
 			$this->m_aktivitas->insert_db($user,$date,$text);
 		}
-		redirect (get_site_url('view_activity'));		
+		//redirect (get_site_url('view_activity'));		
 	}
 	$this->load->helper('form');
 	$data['title']="New Activity";

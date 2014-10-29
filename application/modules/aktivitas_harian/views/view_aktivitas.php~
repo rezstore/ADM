@@ -1,9 +1,6 @@
 <?php 
 
 echo "<table class='table table-striped' style='width:70%'>";
-echo "<tr>
-	<th>No</th>	<th>Tanggal</th>	<th>Aktivitas</th>	<th></th>	
-	</tr>";
 $n=1;
 foreach ($q->result()as $r){
 $id=$r->ID;

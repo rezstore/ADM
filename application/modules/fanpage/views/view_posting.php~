@@ -31,7 +31,7 @@
 			 $status=$r->status;
 			 $post="";
 			 if($prefix=="facebook"){$post=anchor(get_url("post_to_fb_fanpage/".$id),"P",'class="btn btn-primary"');}
-			 	elseif($prefix=="twitter"){$post=anchor(get_url("post_to_twt_fanpage/".$id),"P",'class="btn btn-primary" title="Post"');}
+			 	elseif($prefix=="twitter"){$post=anchor(get_url("post_to_twt_fanpage/".$id),"P",'class="btn btn-primary"');}
 			 $bg="";
 			 if($no%2 == 0){$bg="#B9B9B9;";}
 			 if ($status==1){$bg="";$url_actions="";}else{$bg="#F4B4B4;";

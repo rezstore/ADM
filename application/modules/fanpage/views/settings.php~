@@ -18,7 +18,7 @@
 			<tr>
 			 <td width="100px">Default App</td>
 			 <td width="10px">:</td>
-			 <td><?php echo form_open().dropdown('app',$arr_app,$default_app,'class="form-control" style="width:200px;float:left;margin-left:2px;"').submit('submit','Simpan','style="float:left;margin-left:2px;" class="btn btn-primary"').form_close(); ?></td>
+			 <td><?php echo form_open().dropdown('app',$arr_app,$default_app,'class="form-control" style="width:200px;"').submit('submit','Simpan','style="float:left;margin-left:2px;" class="btn btn-primary"').form_close(); ?></td>
 			</tr>
 			
 			<?php

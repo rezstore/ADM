@@ -31,6 +31,8 @@
 			 $tgl=$r->date_time;
 			 $type=$r->type;
 			 $message=$r->message;
+			 	/*$url_actions=anchor($this->uri->uri_string()."#",'__','class="btn btn-primary" id="delete" 
+					onclick="delete_record(\''.$active.'\','.$ID.');"');*/
 			
               echo "<tr>
                 <td>".$no."</td>

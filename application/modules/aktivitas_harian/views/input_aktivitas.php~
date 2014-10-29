@@ -15,7 +15,7 @@ echo form_open();
 	</tr>";
 	echo "<tr>
 		<td valign='top'>Aktivitas</td> 
-		<td>".form_textarea('text',$activity)."</td>
+		<td>".form_textarea('text',' textarea',$activity)."</td>
 	</tr>";
 	echo "<tr>
 		<td style='text-align:right' colspan=2>".form_submit('submit','kirim','class="btn btn-primary" ')."</td>				

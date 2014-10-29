@@ -3,13 +3,14 @@ define('SITE_NAME',"REZstore.com");
 
 define('BSTRAP_CSS','assets/global_css/bootstrap/');
 define('BSTRAP_JS','assets/global_js/bootstrap/');
-define('JQUERY','assets/global_js/jquery-family/');
-define('J_CSS','assets/global_css/jquery_css/');
+define('JQUERY','/assets/global_js/jquery-family/');
+define('TINYMCE','/assets/global_js/tinymce/');
+define('J_CSS','/assets/global_css/jquery_css/');
 #ADMINITSTRATION
-define('ADM_IMAGE','assets/administration/images/');
-define('ADM_CSS','assets/administration/css/');
-define('ADM_AWSM_CSS','assets/global_css/font-awesome/css/');
-define('ADM_JS','assets/administration/js/');
+define('ADM_IMAGE','/assets/administration/images/');
+define('ADM_CSS','/assets/administration/css/');
+define('ADM_AWSM_CSS','/assets/global_css/font-awesome/css/');
+define('ADM_JS','/assets/administration/js/');
 define('ADM_SITE','administration');
 
 define('SITE',site_url());
@@ -25,19 +26,23 @@ function get_bootstrap_css($filename='bootstrap.css'){
 	}
 	
 function get_bootstrap_js($filename='bootstrap-min.js'){
-	 return base_url(BSTRAP_JS.$filename);
+	 return BASE.BSTRAP_JS.$filename;
 	}
 
 function get_js_family($filename){
-	 return base_url(JQUERY.$filename);
+	 return BASE.JQUERY.$filename;
 	}
 
 function get_jquery_css($filename){
-	 return base_url(J_CSS.$filename);
+	 return BASE.J_CSS.$filename;
 	}
 
 function get_global_css($filename){
-	 return base_url(ADM_CSS.$filename);
+	 return BASE.ADM_CSS.$filename;
+	}
+
+function get_js_tinymce($filename){
+	 return BASE.TINYMCE.$filename;
 	}
 
 

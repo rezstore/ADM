@@ -128,38 +128,6 @@ class Fanpage extends CI_Controller {
 		$this->load_footer($data);
 	}
 	
-	# SETTING #
-	function settings(){
-		$this->load->helper('form');
-		$data['title']="Settings";
-		$data['active']="s";
-		$data['sub']="fb_setting";
-		$this->load_header($data);
-		$this->load->view('settings',$data);
-		$this->load_footer($data);
-	}
-	
-	# LOG #
-	function log(){
-		$user=$this->userdata;
-		$data['title']="Log Activity";
-		$data['active']="l";
-		$data['datas']=$this->m_fanpage->select_log($user);
-		$this->load_header($data);
-		$this->load->view('log_data_activity',$data);
-		$this->load_footer($data);
-	}
-	
-	function gallery(){
-		$user=$this->userdata;
-		$data['title']="Gallery";
-		$data['active']="m";
-		$data['gal']=$this->m_fanpage->select_image_from_postings();
-		$this->load_header($data);
-		$this->load->view('gallery',$data);
-		$this->load_footer($data);
-	}
-	
 	# EDITING DATAS #
 	
 	function edit($type,$id){
@@ -320,6 +288,38 @@ class Fanpage extends CI_Controller {
 			echo var_dump($data);
 			return $data['upload_data']['orig_name'];
 		}
+	}
+	
+	# SETTING #
+	function settings(){
+		$this->load->helper('form');
+		$data['title']="Settings";
+		$data['active']="s";
+		$data['sub']="fb_setting";
+		$this->load_header($data);
+		$this->load->view('settings',$data);
+		$this->load_footer($data);
+	}
+	
+	# LOG #
+	function log(){
+		$user=$this->userdata;
+		$data['title']="Log Activity";
+		$data['active']="l";
+		$data['datas']=$this->m_fanpage->select_log($user);
+		$this->load_header($data);
+		$this->load->view('log_data_activity',$data);
+		$this->load_footer($data);
+	}
+	
+	function gallery(){
+		$user=$this->userdata;
+		$data['title']="Gallery";
+		$data['active']="m";
+		$data['gal']=$this->m_fanpage->select_image_from_postings();
+		$this->load_header($data);
+		$this->load->view('gallery',$data);
+		$this->load_footer($data);
 	}
 	
 	# NEW APPLICATION #
