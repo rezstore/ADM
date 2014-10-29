@@ -1,4 +1,4 @@
-<center><br>
+<br>
 <?php      $nama_bulan=array('Januari','Ferbuari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');?>
    <table width="60%" id="item" style='margin-bottom:20px;' class="table">
         <tr>
