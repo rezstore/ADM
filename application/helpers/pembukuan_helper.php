@@ -2,7 +2,7 @@
 
 include('global_helper.php');
 
-function get_js($filename,$true=false){
+function get_js($filename='',$true=false){
  if($true==false){
   return BASE.'/assets/global_js/pembukuan/'.$filename;
  }else{
@@ -10,8 +10,8 @@ function get_js($filename,$true=false){
  }
 }
 
-function get_css(){
-	return BASE.'/pembukuan/'.$filename;
+function get_css($filename=''){
+	return BASE.'assets/pembukuan/css/'.$filename;
 }
 
 function get_site_url($pagename=''){
@@ -25,7 +25,7 @@ function get_image_post($filename='',$type=''){
  return base_url('assets/uploads/pembukuan/'.$filename);
 }*/
 
-function get_images_icon($filename){
+function get_images_icon($filename=''){
  return BASE.'/assets/pembukuan/images/icons/'.$filename;
 }
 

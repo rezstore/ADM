@@ -14,7 +14,7 @@ var $user;
 	function get_username(){
 		$this->load->library("session");
 		$user=$this->session->userdata('user_account');
-		if($user=="")redirect ('login');
+		if($user=="")redirect(get_site_url('login'));
 		return $user;
 	}
 	
@@ -83,7 +83,7 @@ var $user;
                 {
                    $this->model_pembukuan->insert_new_jurnal_detail($ID,str_replace(',','',$a[$x]),$dbt[$x],$krt[$x]);
                 }
-	    redirect('add_jurnal');
+	    redirect(get_site_url('add_jurnal'));
 	  }else{echo 'POST not Defined';}
 	}
 	
@@ -122,7 +122,7 @@ var $user;
 	    $kode=$this->input->post('kode');
 	    $induk=$this->input->post('induk');
 	    $query=$this->model_pembukuan->new_akun($nama,$kode,$induk);
-	    if ($query){redirect ('add_perkiraan');}
+	    if ($query){redirect(get_site_url('add_perkiraan'));}
 	  }
 	}
 	
@@ -157,14 +157,14 @@ var $user;
 	 {
 	   $id=$this->input->get('id');
 	     $qry=$this->model_pembukuan->delete_jurnal($id);
-	     if ($qry == 1){redirect('view_jurnal');}
+	     if ($qry == 1){redirect(get_site_url('view_jurnal'));}
 	 }
         
         function delete_perkiraan()
 	 {
 	   $id=$this->input->get('id');
 	     $qry=$this->model_pembukuan->delete_perkiraan($id);
-	     if ($qry == 1){redirect('view_perkiraan');}
+	     if ($qry == 1){redirect(get_site_url('view_perkiraan'));}
 	 }
 	 
 	function neraca()
@@ -209,7 +209,7 @@ var $user;
 	        $kode=$this->input->post('kode');
 	        $induk=$this->input->post('induk');
 	        $qry=$this->model_pembukuan->update_perkiraan($id,$nama,$kode,$induk);
-	        if($qry == 1){redirect('view_perkiraan');}else{echo "gagal update";}
+	        if($qry == 1){redirect(get_site_url('view_perkiraan'));}else{echo "gagal update";}
 	      }
 	     }
 	 }

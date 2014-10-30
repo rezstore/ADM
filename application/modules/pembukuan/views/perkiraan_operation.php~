@@ -13,7 +13,7 @@ if ($type==1)
   $value_kd=$kd;
   $value_jn=$jn;
   $selected=$id_p;
-  $action=get_site_url('update_perkiraan?id='.$id);
+  $action='pembukuan/update_perkiraan?id='.$id;
   $submit='Save';
 }else{
   $value_nm='';$value_kd='';$value_jn='';$selected='';$action=get_site_url('tambah_akun_perkiraan');$submit='Tambahkan';

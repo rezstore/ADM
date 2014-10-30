@@ -281,7 +281,7 @@ var $user;
 	   $data['b']=$m-1;	$data['y']=$y;
 	   $data['ctrl']=$this->model_pembukuan;
 	   $data['last']=$this->get_last_month($m,$y);
-	   $this->load->helper(array('form','date'));
+	   $this->load->helper(array('form'));
 	   $this->load_header($data);
  	   $this->load->view('perubahan_modal',$data);
  	   $this->load_footer();

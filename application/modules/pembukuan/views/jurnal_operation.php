@@ -1,4 +1,8 @@
-
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_jquery_css('jquery-ui.css');?>" />
+<script src="<?php echo get_js_family('jquery-1.5.2.min.js');?>"></script>
+<script src="<?php echo get_js_family('jquery-ui.js');?>"></script>
+<script src="<?php echo get_js('token_input/tokeninput.js',true); ?>"></script>
+<link rel="stylesheet" href="<?php echo get_css('token-input-facebook.css'); ?>" />
 <?php
 if(!isset($typ))$typ=0;
 if ($typ == 1)
@@ -23,10 +27,10 @@ if ($typ == 1)
   
 }else{$value_nm='';$value_kd='';$selected='';$action=get_site_url('tambah_akun');$value_nom='';$value_ket='';}
 
-$tgl=array('name'=>'tgl','id'=>'datepicker','placeholder'=>'Tanggal','maxlength'=>'30',$value_nm);
-$a_p=array('name'=>'a_p','id'=>'ap','placeholder'=>'Akun','maxlength'=>'5',$value_kd);
-$nominal=array('name'=>'nominal','placeholder'=>'Nominal','maxlength'=>'5',$value_nom);
-$ket=array('name'=>'ket','placeholder'=>'Keterangan',$value_ket,'style'=>'max-width: 436px; max-height: 68px;border:0px;');
+$tgl=array('name'=>'tgl','id'=>'datepicker','placeholder'=>'Tanggal','maxlength'=>'30',$value_nm,'class'=>'form-control');
+$a_p=array('name'=>'a_p','id'=>'ap','placeholder'=>'Akun','maxlength'=>'5',$value_kd,'class'=>'form-control');
+$nominal=array('name'=>'nominal','placeholder'=>'Nominal','maxlength'=>'5',$value_nom,'class'=>'form-control');
+$ket=array('name'=>'ket','placeholder'=>'Keterangan',$value_ket,'class'=>'form-control','style'=>'max-width: 436px; max-height: 68px;border:0px;');
 $dropdown_dk=array('1'=>'Debet','2'=>'Kredit');
 $f='id="myform"';
 ?>
@@ -34,12 +38,12 @@ $f='id="myform"';
 <?php echo form_open($action,$f); ?>
 <table border="0" width=700 style='margin:50px;' id='f'>
 	<tr id='f1'>
-		<td class="td-head" colspan="3">Form Input Jurnal</td>
+		<td class="td-head" colspan="4"><h2>Form Input Jurnal</h2><br /></td>
 	</tr>
 	<tr>
 		<td>Tanggal</td>
 		<td>:</td>
-		<td><?php echo input('tgl','','id="datepicker"'); ?></td>
+		<td><?php echo input('tgl','','id="datepicker" class="form-control" style="width:200px;"'); ?></td>
 	</tr>
 	<tr>
 		<td>Keterangan</td>
@@ -60,22 +64,22 @@ $f='id="myform"';
 		</td>
 	</tr>
         <tr>
-             <td class="" colspan=3><input type="button" onClick="add_itm();" value="+" class="btn btn-default"> <?php echo submit('submit','Tambahkan').form_button('button','Batalkan'); ?></td>
+             <td class="" colspan=3>
+             <input type="button" id='button' value="+" class="btn btn-default"> 
+             <?php echo submit('submit','Tambahkan','class="btn btn-default"').' '.
+             	form_button('button','Batalkan','class="btn btn-warning"'); ?></td>
         <tr>
 	
 	</table>
 	</form>
-<?php //echo form_close(); ?>
-<script src="<?php echo get_js_family('jquery-1.5.2.min.js'); ?>"></script>
-<script src="<?php echo get_js_family('jquery-ui.js'); ?>"></script>
-<script src="<?php echo get_js('token_input/tokeninput.js',true); ?>"></script>
-<link rel="stylesheet" href="<?php echo get_css('token-input-facebook.css'); ?>">
-<link rel="stylesheet" href="<?php echo get_jquery_css('jquery-ui.css'); ?>">
-<link rel="stylesheet" href="<?php echo get_jquery_css('style.css'); ?>">
 <script type="text/javascript">
-for (var i=1;i <= 2; i++)
-{ 
-        add_itm();
+ad();
+
+function ad(){
+	for (var i=1;i <= 5; i++)
+	{ 
+	       add_itm();
+	}
 }
 
      function add_itm() {
@@ -83,15 +87,15 @@ for (var i=1;i <= 2; i++)
 	    var td = $('<td></td>');
 	    var td_d = $('<td></td>');
 	    var td_k = $('<td></td>');
-	    var debet = $("<input type='text' name='debet[]' placeholder='Rp. xxx' style='height:30px;'>");//<input type='text' name='debet[]' placeholder='Rp. xxx'>
-	    var kredit = $("<input type='text' name='kredit[]' placeholder='Rp. xxx' style='height:30px;'>");
+	    var debet = $("<input type='text' name='debet[]' placeholder='Rp. xxx' style='width:200px;' class='form-control'>");//<input type='text' name='debet[]' placeholder='Rp. xxx'>
+	    var kredit = $("<input type='text' name='kredit[]' placeholder='Rp. xxx' style='width:200px;' class='form-control'>");
 	    var fb = $("<input class='token_fb' name='akun[]'>");
 	    
 	        $('#item').append(tr);
 	        $(tr).append(td);
-	    $(td).append(fb);
+	    	$(td).append(fb);
 
-		$(fb).tokenInput("<?php echo site_url('pembukuan/get_perkiraan'); ?>", {
+		$(fb).tokenInput("<?php echo get_site_url('get_perkiraan'); ?>", {
 			hintText:"Type name from your contacts",
 			noResultsText:"No results",
 			searchingText: "Searching...",
@@ -118,13 +122,7 @@ for (var i=1;i <= 2; i++)
 	            $(td_k).append(kredit);
 	};
 </script>
-<script>
-	$(function() {
-		$( "#datepicker").datepicker({ 
-		dateFormat: 'dd-mm-yy', autoSize: false, disabled: false ,
-		showOn: "button",
-                      buttonImage: "<?php echo get_images_icon('calendar.gif');?>",
-                      buttonImageOnly: true
-		});
-	});
-</script>
+	
+	<script>
+	$( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	</script>
