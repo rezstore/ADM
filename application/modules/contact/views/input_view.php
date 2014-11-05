@@ -2,7 +2,7 @@
 	echo "<table class='table'>";
 	echo "<tr>  <th>nama_kota</th> <th>profinsi</th> </tr>";
 
- echo form_open('contact/insert');
+ echo form_open('contact/new_kota');
 echo"<tr>
 		
 		<td>".form_input('nama')."</td>

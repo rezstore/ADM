@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Oct 30, 2014 at 07:52 PM
--- Server version: 5.5.40-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.4
+-- Host: 127.0.0.1
+-- Generation Time: Nov 05, 2014 at 09:42 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,56 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ADM`
+-- Database: `adm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `ID_contact` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(30) NOT NULL,
+  `alamat` text NOT NULL,
+  `kota` varchar(20) NOT NULL,
+  `kode_pos` varchar(10) NOT NULL,
+  `nomor_telp1` varchar(15) NOT NULL,
+  `nomor_telp2` varchar(15) NOT NULL,
+  `nomor_telp3` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  PRIMARY KEY (`ID_contact`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`ID_contact`, `nama`, `alamat`, `kota`, `kode_pos`, `nomor_telp1`, `nomor_telp2`, `nomor_telp3`, `email`, `status`) VALUES
+(5, 'zaqi', 'jl.....................', 'malang', '0000', '098', '0786', '7655', 'bbbbb', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `daftar_kota`
+--
+
+CREATE TABLE IF NOT EXISTS `daftar_kota` (
+  `ID_kota` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_kota` varchar(30) NOT NULL,
+  `profinsi` varchar(30) NOT NULL,
+  `posis` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID_kota`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `daftar_kota`
+--
+
+INSERT INTO `daftar_kota` (`ID_kota`, `nama_kota`, `profinsi`, `posis`) VALUES
+(11, 'ma', 'hhhhh', '');
 
 -- --------------------------------------------------------
 
@@ -205,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `pembukuan_akun_perkiraan` (
   `kode` varchar(5) NOT NULL,
   `jenis` varchar(5) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=75 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
 
 --
 -- Dumping data for table `pembukuan_akun_perkiraan`

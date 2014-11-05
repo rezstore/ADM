@@ -1,4 +1,5 @@
-	<footer>
+	</div>
+		<footer style="float:bottom">
             <div class="row">
                 <div class="col-lg-12">
                     <p><?php echo get_site_name(); ?></p>
